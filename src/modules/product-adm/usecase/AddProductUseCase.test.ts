@@ -6,7 +6,7 @@ import AddProductUseCase from './AddProductUseCase';
 class MockProductGateway implements ProductGateway {
   async add(product: Product): Promise<void> {}
 
-  async find(id: Id): Promise<Product> {
+  async find(id: string): Promise<Product> {
     throw new Error('Method not implemented.');
   }
 }

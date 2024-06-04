@@ -1,10 +1,10 @@
 import ProductGateway from '../gateway/product.gateway';
 
-type CheckStockProductUseCaseInput = {
+export type CheckStockProductUseCaseInputDTO = {
   productId: string;
 };
 
-type CheckStockProductUseCaseOutput = {
+type CheckStockProductUseCaseOutputDTO = {
   productId: string;
   stock: number;
 }
@@ -16,7 +16,7 @@ export default class CheckStockProductUseCase {
     this._productRepository = productRepository;
   }
 
-  async execute(input: CheckStockProductUseCaseInput): Promise<CheckStockProductUseCaseOutput> {
+  async execute(input: CheckStockProductUseCaseInputDTO): Promise<CheckStockProductUseCaseOutputDTO> {
     const product = await this._productRepository.find(input.productId)
     return {
       productId: product.id.value,

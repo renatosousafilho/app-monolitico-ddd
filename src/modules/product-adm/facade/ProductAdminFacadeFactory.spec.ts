@@ -44,5 +44,27 @@ describe('ProductRepositoryAdminFacadeFactory', () => {
     expect(productFound.description).toBe(input.description);
     expect(productFound.purchasePrice).toBe(input.purchasePrice);
     expect(productFound.stock).toBe(input.stock);
-  })
+  });
+
+  it('should check stock of a product', async () => {
+    // Arrange
+    await ProductModel.create({
+      id: '1',
+      name: 'Product 1',
+      description: 'Description 1',
+      purchasePrice: 10,
+      stock: 10,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    const productFacade = ProductAdminFacadeFactory.create();
+
+    // Act
+    const input = { productId: '1' };
+    const output = await productFacade.checkStockProduct(input);
+
+    // Assert
+    expect(output.productId).toBe(input.productId);
+    expect(output.stock).toBe(10);
+  });
 });

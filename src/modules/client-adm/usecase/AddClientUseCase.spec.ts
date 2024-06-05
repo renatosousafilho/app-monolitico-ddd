@@ -3,9 +3,7 @@ import ClientGateway from '../gateway/ClientGateway';
 import AddClientUseCase from './AddClientUseCase';
 
 class ClientRepositoryMock implements ClientGateway {
-  async add(client: Client): Promise<Client> {
-    return Promise.resolve(client);
-  }
+  async add(client: Client): Promise<void> {}
 
   find(id: string): Promise<Client> {
     throw new Error('Method not implemented.');

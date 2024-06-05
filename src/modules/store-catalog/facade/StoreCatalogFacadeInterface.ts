@@ -4,7 +4,7 @@ type FindAllStoreCatalogProductsOutput = {
     name: string;
     description: string;
     salesPrice: number;
-  }
+  }[]
 }
 
 type FindStoreCatalogProductInput = {

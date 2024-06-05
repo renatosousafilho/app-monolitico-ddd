@@ -42,5 +42,20 @@ describe('ProductRepository', () => {
     expect(products[1].name).toBe('Product 2');
     expect(products[1].description).toBe('Description 2');
     expect(products[1].salesPrice).toBe(20);
-  })
+  });
+
+  it('should find a product by id', async () => {
+    // Arrange
+    await ProductModel.create({ id: '1', name: 'Product 1', description: 'Description 1', salesPrice: 10 });
+    const productRepository = new ProductRepository();
+
+    // Act
+    const product = await productRepository.findById('1');
+
+    // Assert
+    expect(product.id.value).toBe('1');
+    expect(product.name).toBe('Product 1');
+    expect(product.description).toBe('Description 1');
+    expect(product.salesPrice).toBe(10);
+  });
 });

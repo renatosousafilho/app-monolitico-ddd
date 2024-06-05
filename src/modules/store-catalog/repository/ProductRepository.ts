@@ -11,6 +11,8 @@ export default class ProductRepository implements ProductGateway {
   }
 
   async findById(id: string): Promise<Product> {
-    return null;
+    const product = await ProductModel.findByPk(id);
+
+    return new Product(new Id(product.id), product.name, product.description, product.salesPrice);
   }
 }

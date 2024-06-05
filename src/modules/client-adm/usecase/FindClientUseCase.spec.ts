@@ -1,28 +1,31 @@
+import Id from '../../@shared/domain/value-object/id.value-object';
 import Client from '../domain/Client';
 import ClientGateway from '../gateway/ClientGateway';
-import AddClientUseCase from './AddClientUseCase';
+import FindClientUseCase from './FindClientUseCase';
 
 class ClientRepositoryMock implements ClientGateway {
   async add(client: Client): Promise<Client> {
-    return Promise.resolve(client);
-  }
-
-  find(id: string): Promise<Client> {
     throw new Error('Method not implemented.');
   }
-}
 
-describe('AddClientUseCase', () => {
-  it('should add a client', async () => {
-    // Arrange
-    const clientRepository = new ClientRepositoryMock();
-    const addClientUseCase = new AddClientUseCase(clientRepository);
-    const input = {
+  async find(id: string): Promise<Client> {
+    return new Client({
+      id: new Id('123'),
       name: 'John Doe',
       email: 'johndoe@mail.com',
       document: '12345678900',
       address: '123 Main St'
-    };
+    });
+  }
+
+}
+
+describe('FindClientUseCase', () => {
+  it('should find a client', async () => {
+    // Arrange
+    const clientRepository = new ClientRepositoryMock();
+    const addClientUseCase = new FindClientUseCase(clientRepository);
+    const input = { id: '123' };
 
     // Act
     const client = await addClientUseCase.execute(input);

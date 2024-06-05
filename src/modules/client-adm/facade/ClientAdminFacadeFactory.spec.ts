@@ -4,6 +4,7 @@ import ClientRepository from '../repository/ClientRepository';
 import AddClientUseCase from '../usecase/AddClientUseCase';
 import ClientAdminFacade from './ClientAdminFacade';
 import FindClientUseCase from '../usecase/FindClientUseCase';
+import ClientAdminFacadeFactory from './ClientAdminFacadeFactory';
 
 describe('ProductRepository', () => {
   let sequelize: Sequelize;
@@ -25,10 +26,7 @@ describe('ProductRepository', () => {
 
   it('shoud add a client', async () => {
     // Arrange
-    const clientRepository = new ClientRepository();
-    const addClientUseCase = new AddClientUseCase(clientRepository);
-    const findClientUseCase = new FindClientUseCase(clientRepository);
-    const clientAdminFacade = new ClientAdminFacade(addClientUseCase, findClientUseCase);
+    const clientAdminFacade = ClientAdminFacadeFactory.create();
     const input = {
       id: '1',
       name: 'John Doe',
@@ -52,10 +50,7 @@ describe('ProductRepository', () => {
 
   it('shoud find a client', async () => {
     // Arrange
-    const clientRepository = new ClientRepository();
-    const addClientUseCase = new AddClientUseCase(clientRepository);
-    const findClientUseCase = new FindClientUseCase(clientRepository);
-    const clientAdminFacade = new ClientAdminFacade(addClientUseCase, findClientUseCase);
+    const clientAdminFacade = ClientAdminFacadeFactory.create();
     await ClientModel.create({
       id: '1',
       name: 'John Doe',

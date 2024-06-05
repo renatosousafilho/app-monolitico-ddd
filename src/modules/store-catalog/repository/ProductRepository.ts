@@ -1,5 +1,5 @@
-import ProductGateway from '../domain/gateway/ProductGateway';
-import Product from '../domain/entity/Product';
+import ProductGateway from '../gateway/ProductGateway';
+import Product from '../entity/Product';
 import ProductModel from './ProductModel';
 import Id from '../../@shared/domain/value-object/id.value-object';
 

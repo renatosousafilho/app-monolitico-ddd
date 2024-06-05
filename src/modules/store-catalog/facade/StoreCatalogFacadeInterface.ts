@@ -1,4 +1,4 @@
-type FindAllStoreCatalogProductsOutput = {
+export type FindAllStoreCatalogProductsOutput = {
   products: {
     id: string;
     name: string;
@@ -7,11 +7,11 @@ type FindAllStoreCatalogProductsOutput = {
   }[]
 }
 
-type FindStoreCatalogProductInput = {
+export type FindStoreCatalogProductInput = {
   id: string;
 }
 
-type FindStoreCatalogProductOutput = {
+export type FindStoreCatalogProductOutput = {
   id: string;
   name: string;
   description: string;

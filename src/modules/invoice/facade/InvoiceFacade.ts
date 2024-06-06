@@ -1,66 +1,8 @@
 import FindInvoiceUseCase from '../usecase/FindInvoiceUseCase';
 import GenerateInvoiceUseCase from '../usecase/GenerateInvoiceUseCase';
+import InvoiceFacadeInterface, { FindInvoiceFacadeInputDTO, FindInvoiceFacadeOutputDTO, GenerateInvoiceFacadeInputDTO, GenerateInvoiceFacadeOutputDTO } from './InvoiceFacadeInterface';
 
-export interface FindInvoiceFacadeInputDTO {
-  id: string;
-}
-
-export interface FindInvoiceFacadeOutputDTO {
-  id: string;
-  name: string;
-  document: string;
-  address: {
-    street: string;
-    number: string;
-    complement: string;
-    city: string;
-    state: string;
-    zipCode: string;
-  };
-  items: {
-    id: string;
-    name: string;
-    price: number;
-  }[];
-  total: number;
-  createdAt: Date;
-}
-
-export interface GenerateInvoiceFacadeInputDTO {
-  name: string;
-  document: string;
-  street: string;
-  number: string;
-  complement: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  items: {
-    id: string;
-    name: string;
-    price: number;
-  }[];
-}
-
-export interface GenerateInvoiceFacadeOutputDTO {
-  id: string;
-  name: string;
-  document: string;
-  street: string;
-  number: string;
-  complement: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  items: {
-    id: string;
-    name: string;
-    price: number;
-  }[];
-  total: number;
-}
-
-export default class InvoiceFacade {
+export default class InvoiceFacade implements InvoiceFacadeInterface {
   private _findInvoiceUseCase: FindInvoiceUseCase;
   private _generateInvoiceUseCase: GenerateInvoiceUseCase;
 

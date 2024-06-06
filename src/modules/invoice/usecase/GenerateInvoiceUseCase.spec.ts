@@ -50,8 +50,6 @@ describe('GenerateInvoiceUseCase', () => {
     const invoiceGateway = new InvoiceGatewayMock();
     invoiceGateway.create = jest.fn();
     const findInvoiceUseCase = new GenerateInvoiceUseCase(invoiceGateway);
-    
-    // Act
     const input = {
       name: 'John Doe',
       document: '12345678901',
@@ -74,6 +72,8 @@ describe('GenerateInvoiceUseCase', () => {
         },
       ],
     };
+    
+    // Act
     const result = await findInvoiceUseCase.execute(input);
 
     // Assert

@@ -4,6 +4,7 @@ import { InvoiceItemModel } from '../repository/InvoiceItemModel';
 import FindInvoiceUseCase from '../usecase/FindInvoiceUseCase';
 import InvoiceFacade from './InvoiceFacade';
 import InvoiceRepository from '../repository/InvoiceRepository';
+import GenerateInvoiceUseCase from '../usecase/GenerateInvoiceUseCase';
 
 describe('InvoiceFacade', () => {
   let sequelize: Sequelize;
@@ -55,7 +56,8 @@ describe('InvoiceFacade', () => {
     });
     const repository = new InvoiceRepository();
     const findInvoiceUseCase = new FindInvoiceUseCase(repository);
-    const facade = new InvoiceFacade(new FindInvoiceUseCase(new InvoiceRepository()));
+    const generateInvoiceUseCase = new GenerateInvoiceUseCase(repository);
+    const facade = new InvoiceFacade(findInvoiceUseCase, generateInvoiceUseCase);
     const input = { id: '1' };
 
     // Act
@@ -80,4 +82,56 @@ describe('InvoiceFacade', () => {
     expect(output.items[1].name).toBe('Product 2');
     expect(output.items[1].price).toBe(100);
   })
+
+  it('should generate an invoice', async () => {
+    // Arrange
+    const repository = new InvoiceRepository();
+    const findInvoiceUseCase = new FindInvoiceUseCase(repository);
+    const generateInvoiceUseCase = new GenerateInvoiceUseCase(repository);
+    const facade = new InvoiceFacade(findInvoiceUseCase, generateInvoiceUseCase);
+    const input = {
+      name: 'John Doe',
+      document: '12345678901',
+      street: 'Main St',
+      number: '100',
+      complement: 'Apt 200',
+      city: 'Springfield',
+      state: 'IL',
+      zipCode: '62701',
+      items: [
+        {
+          id: '1',
+          name: 'Product 1',
+          price: 50,
+        },
+        {
+          id: '2',
+          name: 'Product 2',
+          price: 100,
+        },
+      ],
+    };
+
+    // Act
+    const output = await facade.generate(input);
+
+    // Assert
+    expect(output.id).toBeDefined();
+    expect(output.id).toBeDefined();
+    expect(output.name).toBe(input.name);
+    expect(output.document).toBe(input.document);
+    expect(output.street).toBe(input.street);
+    expect(output.number).toBe(input.number);
+    expect(output.complement).toBe(input.complement);
+    expect(output.city).toBe(input.city);
+    expect(output.state).toBe(input.state);
+    expect(output.zipCode).toBe(input.zipCode);
+    expect(output.items[0].id).toBe(input.items[0].id);
+    expect(output.items[0].name).toBe(input.items[0].name);
+    expect(output.items[0].price).toBe(input.items[0].price);
+    expect(output.items[1].id).toBe(input.items[1].id);
+    expect(output.items[1].name).toBe(input.items[1].name);
+    expect(output.items[1].price).toBe(input.items[1].price);
+    expect(output.total).toBe(150);
+  });
 });

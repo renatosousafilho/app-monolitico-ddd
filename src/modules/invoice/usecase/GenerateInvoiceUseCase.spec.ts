@@ -3,7 +3,7 @@ import Invoice from '../domain/Invoice';
 import InvoiceItem from '../domain/InvoiceItem';
 import Address from '../domain/value-object/Address';
 import InvoiceGateway from '../gateway/InvoiceGateway';
-import FindInvoiceUseCase from './FindInvoiceUseCase';
+import GenerateInvoiceUseCase from './GenerateInvoiceUseCase';
 
 const address = new Address({
   street: 'Main St',
@@ -37,36 +37,56 @@ const props = {
 const invoice = new Invoice(props);
 
 class InvoiceGatewayMock implements InvoiceGateway {
-  create(invoice: Invoice): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
+  async create(invoice: Invoice): Promise<void> {}
   async find(id: string): Promise<Invoice> {
-    return invoice;
+    throw new Error('Method not implemented.');
   }
 }
 
 
-describe('FindInvoiceUseCase', () => {
-  it('should find an invoice', async () => {
+describe('GenerateInvoiceUseCase', () => {
+  it('should create an invoice', async () => {
     // Arrange
     const invoiceGateway = new InvoiceGatewayMock();
-    invoiceGateway.find = jest.fn().mockResolvedValue(invoice);
-    const findInvoiceUseCase = new FindInvoiceUseCase(invoiceGateway);
+    invoiceGateway.create = jest.fn();
+    const findInvoiceUseCase = new GenerateInvoiceUseCase(invoiceGateway);
     
     // Act
-    const result = await findInvoiceUseCase.execute({ id: '1' });
+    const input = {
+      name: 'John Doe',
+      document: '12345678901',
+      street: 'Main St',
+      number: '100',
+      complement: 'Apt 200',
+      city: 'Springfield',
+      state: 'IL',
+      zipCode: '62701',
+      items: [
+        {
+          id: '1',
+          name: 'Product 1',
+          price: 50,
+        },
+        {
+          id: '2',
+          name: 'Product 2',
+          price: 100,
+        },
+      ],
+    };
+    const result = await findInvoiceUseCase.execute(input);
 
     // Assert
-    expect(invoiceGateway.find).toHaveBeenCalledTimes(1);
-    expect(result.id).toBe(invoice.id.value);
+    expect(invoiceGateway.create).toBeCalled();
+    expect(result.id).toBeDefined();
     expect(result.name).toBe(invoice.name);
     expect(result.document).toBe(invoice.document);
-    expect(result.address.street).toBe(invoice.address.street);
-    expect(result.address.number).toBe(invoice.address.number);
-    expect(result.address.complement).toBe(invoice.address.complement);
-    expect(result.address.city).toBe(invoice.address.city);
-    expect(result.address.state).toBe(invoice.address.state);
-    expect(result.address.zipCode).toBe(invoice.address.zipCode);
+    expect(result.street).toBe(invoice.address.street);
+    expect(result.number).toBe(invoice.address.number);
+    expect(result.complement).toBe(invoice.address.complement);
+    expect(result.city).toBe(invoice.address.city);
+    expect(result.state).toBe(invoice.address.state);
+    expect(result.zipCode).toBe(invoice.address.zipCode);
     expect(result.items[0].id).toBe(invoice.items[0].id);
     expect(result.items[0].name).toBe(invoice.items[0].name);
     expect(result.items[0].price).toBe(invoice.items[0].price);
@@ -74,7 +94,5 @@ describe('FindInvoiceUseCase', () => {
     expect(result.items[1].name).toBe(invoice.items[1].name);
     expect(result.items[1].price).toBe(invoice.items[1].price);
     expect(result.total).toBe(invoice.total);
-
-
   });
 });

@@ -1,20 +1,7 @@
 import ProcessPaymentUseCase from '../usecase/ProcessPaymentUseCase';
+import PaymentFacadeInterface, { CreatePaymentFacadeInput, CreatePaymentFacadeOutput } from './PaymentFacadeInterface';
 
-type CreatePaymentFacadeInput = {
-  amount: number;
-  orderId: string;
-};
-
-type CreatePaymentFacadeOutput = {
-  transactionId: string;
-  orderId: string;
-  amount: number;
-  status: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
-
-export default class PaymentFacade {
+export default class PaymentFacade implements PaymentFacadeInterface {
   private _processPaymentUseCase: ProcessPaymentUseCase;
 
   constructor(processPaymentUseCase: ProcessPaymentUseCase) {

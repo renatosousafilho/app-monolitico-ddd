@@ -1,3 +1,5 @@
+import AggregateRoot from '../../@shared/domain/entity/aggregate-root.interface';
+import BaseEntity from '../../@shared/domain/entity/base.entity';
 import Id from '../../@shared/domain/value-object/id.value-object';
 import InvoiceItem from './InvoiceItem';
 import Address from './value-object/Address';
@@ -12,27 +14,18 @@ type InvoiceProps = {
   updatedAt?: Date // criada automaticamente
 };
 
-export default class Invoice {
-  private _id?: Id;
+export default class Invoice extends BaseEntity implements AggregateRoot {
   private _name: string;
   private _document: string;
   private _address: Address;
   private _items: InvoiceItem[];
-  private _createdAt: Date;
-  private _updatedAt: Date;
 
   constructor(props: InvoiceProps) {
-    this._id = props.id || new Id();
+    super(props.id);
     this._name = props.name;
     this._document = props.document;
     this._address = props.address;
     this._items = props.items;
-    this._createdAt = props.createdAt || new Date();
-    this._updatedAt = props.updatedAt || new Date();
-  }
-
-  get id(): Id {
-    return this._id;
   }
 
   get name(): string {
@@ -49,14 +42,6 @@ export default class Invoice {
 
   get items(): InvoiceItem[] {
     return this._items;
-  }
-
-  get createdAt(): Date {
-    return this._createdAt;
-  }
-
-  get updatedAt(): Date {
-    return this._updatedAt;
   }
 
   get total(): number {

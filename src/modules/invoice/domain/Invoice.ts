@@ -13,7 +13,7 @@ type InvoiceProps = {
 };
 
 export default class Invoice {
-  private _id: Id;
+  private _id?: Id;
   private _name: string;
   private _document: string;
   private _address: Address;
@@ -60,6 +60,6 @@ export default class Invoice {
   }
 
   get total(): number {
-    return this.items.reduce((acc, item) => acc + item.getPrice(), 0);
+    return this.items.reduce((acc, item) => acc + item.price, 0);
   }
 }

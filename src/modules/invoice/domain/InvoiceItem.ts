@@ -5,25 +5,25 @@ type InvoiceItemProps = {
 }
 
 export default class InvoiceItem {
-  private id: string;
-  private name: string;
-  private price: number;
+  private _id: string;
+  private _name: string;
+  private _price: number;
 
   constructor(props: InvoiceItemProps) {
-    this.id = props.id;
-    this.name = props.name;
-    this.price = props.price;
+    this._id = props.id;
+    this._name = props.name;
+    this._price = props.price;
   }
 
-  getId(): string {
-    return this.id;
+  get id(): string {
+    return this._id;
   }
 
-  getName(): string {
-    return this.name;
+  get name(): string {
+    return this._name;
   }
 
-  getPrice(): number {
-    return this.price;
+  get price(): number {
+    return this._price;
   }
 }

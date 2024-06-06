@@ -8,43 +8,43 @@ type AddressProps = {
 };
 
 export default class Address {
-  private street: string;
-  private number: string;
-  private complement: string;
-  private city: string;
-  private state: string;
-  private zipCode: string;
+  private _street: string;
+  private _number: string;
+  private _complement: string;
+  private _city: string;
+  private _state: string;
+  private _zipCode: string;
 
   constructor(props: AddressProps) {
-    this.street = props.street;
-    this.number = props.number;
-    this.complement = props.complement;
-    this.city = props.city;
-    this.state = props.state;
-    this.zipCode = props.zipCode;
+    this._street = props.street;
+    this._number = props.number;
+    this._complement = props.complement;
+    this._city = props.city;
+    this._state = props.state;
+    this._zipCode = props.zipCode;
   }
 
-  getStreet(): string {
-    return this.street;
+  get street(): string {
+    return this._street;
   }
 
-  getNumber(): string {
-    return this.number;
+  get number(): string {
+    return this._number;
   }
 
-  getComplement(): string {
-    return this.complement;
+  get complement(): string {
+    return this._complement;
   }
 
-  getCity(): string {
-    return this.city;
+  get city(): string {
+    return this._city;
   }
 
-  getState(): string {
-    return this.state;
+  get state(): string {
+    return this._state;
   }
 
-  getZipCode(): string {
-    return this.zipCode;
+  get zipCode(): string {
+    return this._zipCode;
   }
 }

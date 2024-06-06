@@ -29,11 +29,11 @@ describe('ProductRepository', () => {
     // Arrange
     const address = new Address({
       street: 'Main St',
-        number: '100',
-        complement: 'Apt 200',
-        city: 'Springfield',
-        state: 'IL',
-        zipCode: '62701',
+      number: '100',
+      complement: 'Apt 200',
+      city: 'Springfield',
+      state: 'IL',
+      zipCode: '62701',
     });
     const item1 = new InvoiceItem({
       id: '1',
@@ -80,7 +80,58 @@ describe('ProductRepository', () => {
     expect(createdInvoice.items[1].id).toBe(invoice.items[1].id);
     expect(createdInvoice.items[1].name).toBe(invoice.items[1].name);
     expect(createdInvoice.items[1].price).toBe(invoice.items[1].price);
-    // 
   });
 
+  it('should find an invoice', async () => {
+    // Arrange
+    const item1 = {
+      id: '1',
+      name: 'Product 1',
+      price: 50,
+    };
+    const item2 = {
+      id: '2',
+      name: 'Product 2',
+      price: 100,
+    };
+    const items = [item1, item2];
+
+    await InvoiceModel.create({
+      id: '1',
+      name: 'John Doe',
+      document: '12345678901',
+      street: 'Main St',
+      number: '100',
+      complement: 'Apt 200',
+      city: 'Springfield',
+      state: 'IL',
+      zipcode: '62701',
+      items,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }, {
+      include: [{ model: InvoiceItemModel }]
+    });
+    const repository = new InvoiceRepository();
+
+    // Act
+    const invoiceFound = await repository.find('1');
+
+    // Assert
+    expect(invoiceFound.id.value).toBe('1');
+    expect(invoiceFound.name).toBe('John Doe');
+    expect(invoiceFound.document).toBe('12345678901');
+    expect(invoiceFound.address.street).toBe('Main St');
+    expect(invoiceFound.address.number).toBe('100');
+    expect(invoiceFound.address.complement).toBe('Apt 200');
+    expect(invoiceFound.address.city).toBe('Springfield');
+    expect(invoiceFound.address.zipCode).toBe('62701'); 
+    expect(invoiceFound.items).toHaveLength(2);
+    expect(invoiceFound.items[0].id).toBe('1');
+    expect(invoiceFound.items[0].name).toBe('Product 1');
+    expect(invoiceFound.items[0].price).toBe(50);
+    expect(invoiceFound.items[1].id).toBe('2');
+    expect(invoiceFound.items[1].name).toBe('Product 2');
+    expect(invoiceFound.items[1].price).toBe(100);
+  })
 });

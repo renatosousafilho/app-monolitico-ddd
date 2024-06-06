@@ -1,4 +1,7 @@
+import Id from '../../@shared/domain/value-object/id.value-object';
 import Invoice from '../domain/Invoice';
+import InvoiceItem from '../domain/InvoiceItem';
+import Address from '../domain/value-object/Address';
 import InvoiceGateway from '../gateway/InvoiceGateway';
 import { InvoiceItemModel } from './InvoiceItemModel';
 import { InvoiceModel } from './InvoiceModel';
@@ -26,8 +29,37 @@ export default class InvoiceRepository implements InvoiceGateway {
       include: [{ model: InvoiceItemModel }]
     });
   }
-  find(id: string): Promise<Invoice> {
-    throw new Error('Method not implemented.');
+
+  async find(id: string): Promise<Invoice> {
+    const invoiceFound = await InvoiceModel.findOne({ 
+      where: { id },
+      include: [{ model: InvoiceItemModel }]
+    });
+
+    const address = new Address({
+      street: invoiceFound.street,
+      number: invoiceFound.number,
+      complement: invoiceFound.complement,
+      city: invoiceFound.city,
+      state: invoiceFound.state,
+      zipCode: invoiceFound.zipcode,
+    });
+
+    const items = invoiceFound.items.map((item) => new InvoiceItem({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+    }));
+
+    const invoice = new Invoice({
+      id: new Id(invoiceFound.id),
+      name: invoiceFound.name,
+      document: invoiceFound.document,
+      address,
+      items,
+    });
+
+    return invoice;
   }
 
 }

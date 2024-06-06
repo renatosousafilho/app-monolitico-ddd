@@ -13,50 +13,50 @@ type InvoiceProps = {
 };
 
 export default class Invoice {
-  private id: Id;
-  private name: string;
-  private document: string;
-  private address: Address;
-  private items: InvoiceItem[];
-  private createdAt: Date;
-  private updatedAt: Date;
+  private _id: Id;
+  private _name: string;
+  private _document: string;
+  private _address: Address;
+  private _items: InvoiceItem[];
+  private _createdAt: Date;
+  private _updatedAt: Date;
 
   constructor(props: InvoiceProps) {
-    this.id = props.id || new Id();
-    this.name = props.name;
-    this.document = props.document;
-    this.address = props.address;
-    this.items = props.items;
-    this.createdAt = props.createdAt || new Date();
-    this.updatedAt = props.updatedAt || new Date();
+    this._id = props.id || new Id();
+    this._name = props.name;
+    this._document = props.document;
+    this._address = props.address;
+    this._items = props.items;
+    this._createdAt = props.createdAt || new Date();
+    this._updatedAt = props.updatedAt || new Date();
   }
 
-  getId(): Id {
-    return this.id;
+  get id(): Id {
+    return this._id;
   }
 
-  getName(): string {
-    return this.name;
+  get name(): string {
+    return this._name;
   }
 
-  getDocument(): string {
-    return this.document;
+  get document(): string {
+    return this._document;
   }
 
-  getAddress(): Address {
-    return this.address;
+  get address(): Address {
+    return this._address;
   }
 
-  getItems(): InvoiceItem[] {
-    return this.items;
+  get items(): InvoiceItem[] {
+    return this._items;
   }
 
-  getCreatedAt(): Date {
-    return this.createdAt;
+  get createdAt(): Date {
+    return this._createdAt;
   }
 
-  getUpdatedAt(): Date {
-    return this.updatedAt;
+  get updatedAt(): Date {
+    return this._updatedAt;
   }
 
   get total(): number {

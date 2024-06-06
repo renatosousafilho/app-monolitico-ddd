@@ -36,13 +36,12 @@ describe('Invoice', () => {
     const invoice = new Invoice(props);
 
     // Assert
-    expect(invoice.getId()).toBeDefined();
-    expect(invoice.getName()).toBe(props.name);
-    expect(invoice.getDocument()).toBe(props.document);
-    expect(invoice.getAddress()).toBe(props.address);
-    expect(invoice.getItems()).toBe(props.items);
-    expect(invoice.getCreatedAt()).toBeDefined();
-    expect(invoice.getUpdatedAt()).toBeDefined();
+    expect(invoice.name).toBe('John Doe');
+    expect(invoice.document).toBe('12345678901');
+    expect(invoice.address).toBe(address);
+    expect(invoice.items).toBe(items);
+    expect(invoice.createdAt).toBeDefined();
+    expect(invoice.updatedAt).toBeDefined();
     expect(invoice.total).toBe(150);
   });
 });

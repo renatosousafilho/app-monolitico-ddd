@@ -58,4 +58,8 @@ export default class Invoice {
   getUpdatedAt(): Date {
     return this.updatedAt;
   }
+
+  get total(): number {
+    return this.items.reduce((acc, item) => acc + item.getPrice(), 0);
+  }
 }

@@ -43,5 +43,6 @@ describe('Invoice', () => {
     expect(invoice.getItems()).toBe(props.items);
     expect(invoice.getCreatedAt()).toBeDefined();
     expect(invoice.getUpdatedAt()).toBeDefined();
+    expect(invoice.total).toBe(150);
   });
 });

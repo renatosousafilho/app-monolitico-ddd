@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import Id from '../../@shared/domain/value-object/id.value-object';
 import TransactionModel from './TransactionModel';
-import Transaction from '../domain/Transaction';
+import Transaction from '../entity/Transaction';
 import TransactionRepository from './TransactionRepository';
 
 describe('TransactionRepository', () => {

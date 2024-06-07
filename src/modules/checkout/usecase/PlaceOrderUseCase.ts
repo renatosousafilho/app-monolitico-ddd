@@ -4,9 +4,9 @@ import InvoiceFacadeInterface from '../../invoice/facade/InvoiceFacadeInterface'
 import PaymentFacadeInterface from '../../payment/facade/PaymentFacadeInterface';
 import ProductAdminFacadeInterface from '../../product-adm/facade/ProductAdminFacadeInterface';
 import StoreCatalogFacadeInterface from '../../store-catalog/facade/StoreCatalogFacadeInterface';
-import Client from '../domain/Client';
-import Order from '../domain/Order';
-import Product from '../domain/Product';
+import Client from '../entity/Client';
+import Order from '../entity/Order';
+import Product from '../entity/Product';
 import OrderGateway from '../gateway/OrderGateway';
 import OrderRepository from '../repository/OrderRepository';
 

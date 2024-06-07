@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize-typescript';
 import Id from '../../@shared/domain/value-object/id.value-object';
 import { ClientModel } from './ClientModel';
 import ClientRepository from './ClientRepository';
-import Client from '../domain/Client';
+import Client from '../entity/Client';
 
 describe('ProductRepository', () => {
   let sequelize: Sequelize;

@@ -1,4 +1,4 @@
-import Transaction from '../domain/Transaction';
+import Transaction from '../entity/Transaction';
 import TransactionGateway from '../gateway/TransactionGateway';
 
 type ProcessPaymentUseCaseInput = {

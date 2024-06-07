@@ -2,9 +2,9 @@ import { Sequelize } from 'sequelize-typescript';
 import Id from '../../@shared/domain/value-object/id.value-object';
 import { InvoiceModel } from './InvoiceModel';
 import { InvoiceItemModel } from './InvoiceItemModel';
-import Address from '../domain/value-object/Address';
-import InvoiceItem from '../domain/InvoiceItem';
-import Invoice from '../domain/Invoice';
+import Address from '../entity/value-object/Address';
+import InvoiceItem from '../entity/InvoiceItem';
+import Invoice from '../entity/Invoice';
 import InvoiceRepository from './InvoiceRepository';
 
 describe('ProductRepository', () => {

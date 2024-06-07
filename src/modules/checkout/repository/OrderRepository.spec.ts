@@ -1,11 +1,11 @@
 import { Sequelize } from 'sequelize-typescript';
 import Id from '../../@shared/domain/value-object/id.value-object';
 import { OrderModel } from './OrderModel';
-import Order from '../domain/Order';
-import Client from '../domain/Client';
+import Order from '../entity/Order';
+import Client from '../entity/Client';
 import OrderRepository from './OrderRepository';
 import { OrderItemModel } from './OrderItemModel';
-import Product from '../domain/Product';
+import Product from '../entity/Product';
 
 
 describe('ProductRepository', () => {

@@ -1,4 +1,4 @@
-import Order from '../domain/Order';
+import Order from '../entity/Order';
 import OrderGateway from '../gateway/OrderGateway';
 import { OrderItemModel } from './OrderItemModel';
 import { OrderModel } from './OrderModel';

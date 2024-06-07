@@ -1,4 +1,4 @@
-import Product from '../domain/product.entity';
+import Product from '../entity/product.entity';
 import ProductGateway from '../gateway/product.gateway';
 import Id from '../../@shared/domain/value-object/id.value-object';
 import AddProductUseCase from './AddProductUseCase';

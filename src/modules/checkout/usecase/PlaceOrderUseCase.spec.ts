@@ -3,7 +3,7 @@ import InvoiceFacadeInterface, { FindInvoiceFacadeInputDTO, FindInvoiceFacadeOut
 import PaymentFacadeInterface, { CreatePaymentFacadeInput, CreatePaymentFacadeOutput } from '../../payment/facade/PaymentFacadeInterface';
 import ProductAdminFacadeInterface, { AddProductAdminFacadeInputDTO, CheckStockProductAdminFacadeInputDTO, CheckStockProductAdminFacadeOutputDTO } from '../../product-adm/facade/ProductAdminFacadeInterface';
 import StoreCatalogFacadeInterface, { FindAllStoreCatalogProductsOutput, FindStoreCatalogProductInput, FindStoreCatalogProductOutput } from '../../store-catalog/facade/StoreCatalogFacadeInterface';
-import Order from '../domain/Order';
+import Order from '../entity/Order';
 import OrderGateway from '../gateway/OrderGateway';
 import PlaceOrderUseCase from './PlaceOrderUseCase';
 

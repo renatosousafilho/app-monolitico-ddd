@@ -1,6 +1,6 @@
-import Invoice from '../domain/Invoice';
-import InvoiceItem from '../domain/InvoiceItem';
-import Address from '../domain/value-object/Address';
+import Invoice from '../entity/Invoice';
+import InvoiceItem from '../entity/InvoiceItem';
+import Address from '../entity/value-object/Address';
 import InvoiceGateway from '../gateway/InvoiceGateway';
 
 export interface GenerateInvoiceUseCaseInputDto {

@@ -1,4 +1,4 @@
-import Product from '../domain/product.entity';
+import Product from '../entity/product.entity';
 
 export default interface ProductGateway {
   find(id: string): Promise<Product>;

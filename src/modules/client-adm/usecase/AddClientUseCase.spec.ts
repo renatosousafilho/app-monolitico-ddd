@@ -1,4 +1,4 @@
-import Client from '../domain/Client';
+import Client from '../entity/Client';
 import ClientGateway from '../gateway/ClientGateway';
 import AddClientUseCase from './AddClientUseCase';
 

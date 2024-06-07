@@ -1,5 +1,5 @@
 import Id from '../../@shared/domain/value-object/id.value-object';
-import Transaction from '../domain/Transaction';
+import Transaction from '../entity/Transaction';
 import TransactionGateway from '../gateway/TransactionGateway';
 import TransactionModel from './TransactionModel';
 

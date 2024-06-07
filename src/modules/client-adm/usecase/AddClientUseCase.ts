@@ -1,5 +1,5 @@
 import Id from '../../@shared/domain/value-object/id.value-object';
-import Client from '../domain/Client';
+import Client from '../entity/Client';
 import ClientGateway from '../gateway/ClientGateway';
 
 type AddClientUseCaseInput = { 

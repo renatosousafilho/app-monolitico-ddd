@@ -1,5 +1,5 @@
 import ClientGateway from '../gateway/ClientGateway';
-import Client from '../domain/Client';
+import Client from '../entity/Client';
 import { ClientModel } from './ClientModel';
 import Id from '../../@shared/domain/value-object/id.value-object';
 

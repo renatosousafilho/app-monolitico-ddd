@@ -1,7 +1,7 @@
 import Id from '../../@shared/domain/value-object/id.value-object';
-import Invoice from '../domain/Invoice';
-import InvoiceItem from '../domain/InvoiceItem';
-import Address from '../domain/value-object/Address';
+import Invoice from '../entity/Invoice';
+import InvoiceItem from '../entity/InvoiceItem';
+import Address from '../entity/value-object/Address';
 import InvoiceGateway from '../gateway/InvoiceGateway';
 import GenerateInvoiceUseCase from './GenerateInvoiceUseCase';
 

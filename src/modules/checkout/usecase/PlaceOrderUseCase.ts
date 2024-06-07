@@ -1,4 +1,6 @@
 import ClientAdminFacadeInterface from '../../client-adm/facade/ClientAdminFacadeInterface';
+import ProductAdminFacadeInterface from '../../product-adm/facade/ProductAdminFacadeInterface';
+import Product from '../domain/Product';
 
 type PlaceOrderUseCaseInput = {
   clientId: string;
@@ -17,11 +19,35 @@ type PlaceOrderUseCaseOutput = {
   }[];
 }
 
+type PlaceOrderUseCaseProps = {
+  clientAdminFacade?: ClientAdminFacadeInterface;
+  productAdminFacade?: ProductAdminFacadeInterface;
+}
+
 export default class PlaceOrderUseCase {
   private _clientAdminFacade: ClientAdminFacadeInterface;
+  private _productAdminFacade: ProductAdminFacadeInterface;
 
-  constructor(clientAdminFacade: ClientAdminFacadeInterface) {
-    this._clientAdminFacade = clientAdminFacade;
+  constructor(props: PlaceOrderUseCaseProps) {
+    this._clientAdminFacade = props.clientAdminFacade;
+    this._productAdminFacade = props.productAdminFacade;
+  }
+
+  private async checkStockProducts(products: { productId: string }[]) {
+    if (products.length === 0) {
+      throw new Error('Products are required');
+    }
+
+    for (const product of products) {
+      const productFound = await this._productAdminFacade.checkStockProduct({ productId: product.productId });
+      if (!productFound) {
+        throw new Error('Product not found');
+      }
+
+      if (productFound.stock === 0) {
+        throw new Error('Product out of stock');
+      }
+    }
   }
 
   async execute(input: PlaceOrderUseCaseInput): Promise<PlaceOrderUseCaseOutput> {
@@ -30,10 +56,8 @@ export default class PlaceOrderUseCase {
       throw new Error('Client not found');
     }
 
-    if (input.products.length === 0) {
-      throw new Error('Products are required');
-    }
-
+    await this.checkStockProducts(input.products);
+  
     return {
       id: 'order-id',
       invoiceId: 'invoice-id',

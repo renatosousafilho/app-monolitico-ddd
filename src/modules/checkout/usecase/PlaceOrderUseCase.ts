@@ -1,5 +1,7 @@
 import Id from '../../@shared/domain/value-object/id.value-object';
 import ClientAdminFacadeInterface from '../../client-adm/facade/ClientAdminFacadeInterface';
+import InvoiceFacadeInterface from '../../invoice/facade/InvoiceFacadeInterface';
+import PaymentFacadeInterface from '../../payment/facade/PaymentFacadeInterface';
 import ProductAdminFacadeInterface from '../../product-adm/facade/ProductAdminFacadeInterface';
 import StoreCatalogFacadeInterface from '../../store-catalog/facade/StoreCatalogFacadeInterface';
 import Client from '../domain/Client';
@@ -27,17 +29,23 @@ type PlaceOrderUseCaseProps = {
   clientAdminFacade?: ClientAdminFacadeInterface;
   productAdminFacade?: ProductAdminFacadeInterface;
   storeCatalogFacade?: StoreCatalogFacadeInterface;
+  paymentFacade?: PaymentFacadeInterface;
+  invoiceFacade?: InvoiceFacadeInterface;
 }
 
 export default class PlaceOrderUseCase {
   private _clientAdminFacade: ClientAdminFacadeInterface;
   private _productAdminFacade: ProductAdminFacadeInterface;
   private _storeCatalogFacade: StoreCatalogFacadeInterface;
+  private _paymentFacade: PaymentFacadeInterface;
+  private _invoiceFacade: InvoiceFacadeInterface;
 
   constructor(props: PlaceOrderUseCaseProps) {
     this._clientAdminFacade = props.clientAdminFacade;
     this._productAdminFacade = props.productAdminFacade;
     this._storeCatalogFacade = props.storeCatalogFacade;
+    this._paymentFacade = props.paymentFacade;
+    this._invoiceFacade = props.invoiceFacade;
   }
 
   private async checkStockProducts(products: { productId: string }[]) {
@@ -89,6 +97,27 @@ export default class PlaceOrderUseCase {
     return Promise.all(productsPromises);
   }
 
+  async generateInvoice(order: Order) {
+    const items = order.products.map((product) => ({
+      id: product.id.value,
+      name: product.name,
+      price: product.salesPrice,
+    }))
+    const invoice = await this._invoiceFacade.generate({
+      name: order.client.name,
+      // Refatorar para pegar dados de cliente!!!
+      document: '',
+      street: '',
+      number: '',
+      complement: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      items,
+    })
+    return invoice;
+  }
+
   async execute(input: PlaceOrderUseCaseInput): Promise<PlaceOrderUseCaseOutput> {
     const client = await this.buildClient(input.clientId);
     await this.checkStockProducts(input.products);
@@ -98,13 +127,27 @@ export default class PlaceOrderUseCase {
       client,
       products,
     });
+
+    const payment = await this._paymentFacade.process({
+      orderId: order.id.value,
+      amount: order.total,
+    })
+
+    let invoiceId = null;
+    if (payment.status === 'approved') {
+      order.approve();
+      const invoice = await this.generateInvoice(order);
+      invoiceId = invoice.id;
+    } else {
+      order.decline();
+    }
   
     return {
-      id: 'order-id',
-      invoiceId: 'invoice-id',
-      status: 'pending',
-      total: 0,
-      products: []
-    }
+      id: order.id.value,
+      invoiceId,
+      status: order.status,
+      total: order.total,
+      products: order.products.map((p) => ({ productId: p.id.value })),
+    };
   }
 }

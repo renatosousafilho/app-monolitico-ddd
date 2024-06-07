@@ -27,6 +27,10 @@ export default class Order extends BaseEntity implements AggregateRoot {
     this._status = 'approved';
   }
 
+  decline() {
+    this._status = 'declined';
+  }
+
   get client() {
     return this._client;
   }

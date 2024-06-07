@@ -1,27 +1,8 @@
 import AddClientUseCase from '../usecase/AddClientUseCase';
 import FindClientUseCase from '../usecase/FindClientUseCase';
+import ClientAdminFacadeInterface, { AddClientAdminFacadeInput, FindClientAdminFacadeInput, FindClientAdminFacadeOutput } from './ClientAdminFacadeInterface';
 
-type AddClientAdminFacadeInput = {
-  id?: string;
-  name: string;
-  email: string;
-  document: string;
-  address: string;
-};
-
-type FindClientAdminFacadeInput = {
-  id: string;
-};
-
-type FindClientAdminFacadeOutput = {
-  id: string;
-  name: string;
-  email: string;
-  document: string;
-  address: string;
-};
-
-export default class ClientAdminFacade {
+export default class ClientAdminFacade implements ClientAdminFacadeInterface {
   private _addClientUseCase: AddClientUseCase;
   private _findClientUseCase: FindClientUseCase;
 

@@ -1,5 +1,6 @@
 import ClientAdminFacadeInterface, { AddClientAdminFacadeInput, FindClientAdminFacadeInput, FindClientAdminFacadeOutput } from '../../client-adm/facade/ClientAdminFacadeInterface';
 import ProductAdminFacadeInterface, { AddProductAdminFacadeInputDTO, CheckStockProductAdminFacadeInputDTO, CheckStockProductAdminFacadeOutputDTO } from '../../product-adm/facade/ProductAdminFacadeInterface';
+import StoreCatalogFacadeInterface, { FindAllStoreCatalogProductsOutput, FindStoreCatalogProductInput, FindStoreCatalogProductOutput } from '../../store-catalog/facade/StoreCatalogFacadeInterface';
 import PlaceOrderUseCase from './PlaceOrderUseCase';
 
 class ClientAdminFacadeMockWithClientNotFound implements ClientAdminFacadeInterface {
@@ -44,6 +45,27 @@ class ProductAdminFacadeCheckStockProductOutOfStock implements ProductAdminFacad
   }
   addProduct(product: AddProductAdminFacadeInputDTO): Promise<void> {
     throw new Error('Method not implemented.');
+  }
+}
+
+class ProductAdminFacadeCheckStockProductFound implements ProductAdminFacadeInterface {
+  async checkStockProduct(input: CheckStockProductAdminFacadeInputDTO): Promise<CheckStockProductAdminFacadeOutputDTO> {
+    return {
+      productId: 'product-id',
+      stock: 10
+    };
+  }
+  addProduct(product: AddProductAdminFacadeInputDTO): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+}
+
+class StoreCatalogFacadeMockProductNotFound implements StoreCatalogFacadeInterface {
+  findAll(): Promise<FindAllStoreCatalogProductsOutput> {
+    throw new Error('Method not implemented.');
+  }
+  find(input: FindStoreCatalogProductInput): Promise<FindStoreCatalogProductOutput> {
+    return null;
   }
 }
 
@@ -108,5 +130,27 @@ describe('PlaceOrderUseCase', () => {
 
     // Act & Assert
     await expect(placeOrderUseCase.execute(input)).rejects.toThrow('Product out of stock');
+  });
+
+  it('should throw error if product not exists in store catalog', async () => {
+    // Arrange
+    const clientAdminFacade = new ClientAdminFacadeMockWithClientFound();
+    const productAdminFacade = new ProductAdminFacadeCheckStockProductFound();
+    const storeCatalogFacade = new StoreCatalogFacadeMockProductNotFound();
+
+    const placeOrderUseCase = new PlaceOrderUseCase({ 
+      clientAdminFacade, 
+      productAdminFacade,
+      storeCatalogFacade,
+    });
+    const input = {
+      clientId: '1',
+      products: [
+        { productId: 'product-not-found' }
+      ]
+    };
+
+    // Act & Assert
+    await expect(placeOrderUseCase.execute(input)).rejects.toThrow('Product not found in store catalog');
   });
 });

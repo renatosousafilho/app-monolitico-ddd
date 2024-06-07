@@ -109,9 +109,7 @@ describe('ProductRepository', () => {
       items,
       createdAt: new Date(),
       updatedAt: new Date()
-    }, {
-      include: [{ model: InvoiceItemModel }]
-    });
+    }, { include: [{ model: InvoiceItemModel }]});
     const repository = new InvoiceRepository();
 
     // Act

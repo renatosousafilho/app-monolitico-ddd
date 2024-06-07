@@ -3,6 +3,8 @@ import InvoiceFacadeInterface, { FindInvoiceFacadeInputDTO, FindInvoiceFacadeOut
 import PaymentFacadeInterface, { CreatePaymentFacadeInput, CreatePaymentFacadeOutput } from '../../payment/facade/PaymentFacadeInterface';
 import ProductAdminFacadeInterface, { AddProductAdminFacadeInputDTO, CheckStockProductAdminFacadeInputDTO, CheckStockProductAdminFacadeOutputDTO } from '../../product-adm/facade/ProductAdminFacadeInterface';
 import StoreCatalogFacadeInterface, { FindAllStoreCatalogProductsOutput, FindStoreCatalogProductInput, FindStoreCatalogProductOutput } from '../../store-catalog/facade/StoreCatalogFacadeInterface';
+import Order from '../domain/Order';
+import OrderGateway from '../gateway/OrderGateway';
 import PlaceOrderUseCase from './PlaceOrderUseCase';
 
 class ClientAdminFacadeMockWithClientNotFound implements ClientAdminFacadeInterface {
@@ -134,7 +136,12 @@ class InvoiceFacadeMock implements InvoiceFacadeInterface {
       total: 10,
     } 
   }
-  
+}
+
+class OrderRepositoryMock implements OrderGateway {
+  async add(order: Order): Promise<void> {
+    return;
+  }
 }
 
 describe('PlaceOrderUseCase', () => {
@@ -228,8 +235,10 @@ describe('PlaceOrderUseCase', () => {
     const productAdminFacade = new ProductAdminFacadeCheckStockProductFound();
     const storeCatalogFacade = new StoreCatalogFacadeMockProductFound();
     const paymentFacade = new PaymentFacadeMockDeclined();
+    const orderRepository = new OrderRepositoryMock();
 
     const placeOrderUseCase = new PlaceOrderUseCase({ 
+      orderRepository,
       clientAdminFacade, 
       productAdminFacade,
       storeCatalogFacade,
@@ -260,8 +269,10 @@ describe('PlaceOrderUseCase', () => {
     const storeCatalogFacade = new StoreCatalogFacadeMockProductFound();
     const paymentFacade = new PaymentFacadeMockApproved();
     const invoiceFacade = new InvoiceFacadeMock();
+    const orderRepository = new OrderRepositoryMock();
 
     const placeOrderUseCase = new PlaceOrderUseCase({ 
+      orderRepository,
       clientAdminFacade, 
       productAdminFacade,
       storeCatalogFacade,

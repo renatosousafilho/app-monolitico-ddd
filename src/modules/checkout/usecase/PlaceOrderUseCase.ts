@@ -7,6 +7,8 @@ import StoreCatalogFacadeInterface from '../../store-catalog/facade/StoreCatalog
 import Client from '../domain/Client';
 import Order from '../domain/Order';
 import Product from '../domain/Product';
+import OrderGateway from '../gateway/OrderGateway';
+import OrderRepository from '../repository/OrderRepository';
 
 type PlaceOrderUseCaseInput = {
   clientId: string;
@@ -26,6 +28,7 @@ type PlaceOrderUseCaseOutput = {
 }
 
 type PlaceOrderUseCaseProps = {
+  orderRepository?: OrderGateway;
   clientAdminFacade?: ClientAdminFacadeInterface;
   productAdminFacade?: ProductAdminFacadeInterface;
   storeCatalogFacade?: StoreCatalogFacadeInterface;
@@ -34,6 +37,7 @@ type PlaceOrderUseCaseProps = {
 }
 
 export default class PlaceOrderUseCase {
+  private _orderRepository: OrderGateway;
   private _clientAdminFacade: ClientAdminFacadeInterface;
   private _productAdminFacade: ProductAdminFacadeInterface;
   private _storeCatalogFacade: StoreCatalogFacadeInterface;
@@ -41,6 +45,7 @@ export default class PlaceOrderUseCase {
   private _invoiceFacade: InvoiceFacadeInterface;
 
   constructor(props: PlaceOrderUseCaseProps) {
+    this._orderRepository = props.orderRepository || new OrderRepository();
     this._clientAdminFacade = props.clientAdminFacade;
     this._productAdminFacade = props.productAdminFacade;
     this._storeCatalogFacade = props.storeCatalogFacade;
@@ -141,6 +146,8 @@ export default class PlaceOrderUseCase {
     } else {
       order.decline();
     }
+
+    await this._orderRepository.add(order);
   
     return {
       id: order.id.value,

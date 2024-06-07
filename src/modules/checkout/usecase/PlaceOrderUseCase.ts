@@ -30,6 +30,10 @@ export default class PlaceOrderUseCase {
       throw new Error('Client not found');
     }
 
+    if (input.products.length === 0) {
+      throw new Error('Products are required');
+    }
+
     return {
       id: 'order-id',
       invoiceId: 'invoice-id',

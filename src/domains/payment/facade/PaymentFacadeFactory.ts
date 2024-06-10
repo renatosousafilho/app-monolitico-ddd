@@ -1,4 +1,4 @@
-import TransactionRepository from '../repository/TransactionRepository';
+import TransactionRepository from '../../../infrastructure/payment/repository/TransactionRepository';
 import ProcessPaymentUseCase from '../usecase/ProcessPaymentUseCase';
 import PaymentFacade from './PaymentFacade';
 

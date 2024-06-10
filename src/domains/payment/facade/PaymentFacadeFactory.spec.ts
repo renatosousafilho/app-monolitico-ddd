@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
-import TransactionModel from '../repository/TransactionModel';
-import TransactionRepository from '../repository/TransactionRepository';
+import TransactionModel from '../../../infrastructure/payment/repository/TransactionModel';
+import TransactionRepository from '../../../infrastructure/payment/repository/TransactionRepository';
 import ProcessPaymentUseCase from '../usecase/ProcessPaymentUseCase';
 import PaymentFacade from './PaymentFacade';
 import PaymentFacadeFactory from './PaymentFacadeFactory';

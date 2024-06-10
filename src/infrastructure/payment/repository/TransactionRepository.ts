@@ -1,6 +1,6 @@
-import Id from '../../@shared/value-object/id.value-object';
-import Transaction from '../entity/Transaction';
-import TransactionGateway from '../gateway/TransactionGateway';
+import Id from '../../../domains/@shared/value-object/id.value-object';
+import Transaction from '../../../domains/payment/entity/Transaction';
+import TransactionGateway from '../../../domains/payment/gateway/TransactionGateway';
 import TransactionModel from './TransactionModel';
 
 export default class TransactionRepository implements TransactionGateway {

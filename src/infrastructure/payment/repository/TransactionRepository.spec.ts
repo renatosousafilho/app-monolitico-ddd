@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
-import Id from '../../@shared/value-object/id.value-object';
+import Id from '../../../domains/@shared/value-object/id.value-object';
 import TransactionModel from './TransactionModel';
-import Transaction from '../entity/Transaction';
+import Transaction from '../../../domains/payment/entity/Transaction';
 import TransactionRepository from './TransactionRepository';
 
 describe('TransactionRepository', () => {
@@ -40,6 +40,5 @@ describe('TransactionRepository', () => {
     expect(createdTransaction.orderId).toBe('123');
     expect(createdTransaction.amount).toBe(100);
     expect(createdTransaction.status).toBe('approved');
-
   });
 });

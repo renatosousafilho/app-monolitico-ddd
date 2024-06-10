@@ -3,9 +3,11 @@ import Id from '../../../../domains/@shared/value-object/id.value-object';
 import TransactionModel from './TransactionModel';
 import Transaction from '../../../../domains/payment/entity/Transaction';
 import TransactionRepository from './TransactionRepository';
+import UmzugMigrator from '../../../sequelize/migrator';
 
 describe('TransactionRepository', () => {
   let sequelize: Sequelize;
+  let migration: UmzugMigrator;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
@@ -15,10 +17,12 @@ describe('TransactionRepository', () => {
       sync: { force: true },
     });
     await sequelize.addModels([TransactionModel]);
-    await sequelize.sync();
+    migration = new UmzugMigrator(sequelize);
+    await migration.up();
   });
 
   afterEach(async () => {
+    await migration.down();
     await sequelize.close();
   });
 

@@ -1,9 +1,11 @@
 import { Sequelize } from 'sequelize-typescript';
 import ProductModel from '../repository/ProductModel';
 import ProductAdminFacadeFactory from './ProductAdminFacadeFactory';
+import UmzugMigrator from '../../../sequelize/migrator';
 
 describe('ProductRepositoryAdminFacadeFactory', () => {
   let sequelize: Sequelize;
+  let migrator: UmzugMigrator;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
@@ -13,10 +15,12 @@ describe('ProductRepositoryAdminFacadeFactory', () => {
       sync: { force: true },
     });
     await sequelize.addModels([ProductModel]);
-    await sequelize.sync();
+    migrator = new UmzugMigrator(sequelize);
+    await migrator.up();
   });
 
   afterEach(async () => {
+    await migrator.down();
     await sequelize.close();
   });
 

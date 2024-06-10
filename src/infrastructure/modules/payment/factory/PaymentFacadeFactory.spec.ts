@@ -1,10 +1,12 @@
 import { Sequelize } from 'sequelize-typescript';
 import TransactionModel from '../repository/TransactionModel';
 import PaymentFacadeFactory from './PaymentFacadeFactory';
+import UmzugMigrator from '../../../sequelize/migrator';
 
 
-describe('PaymentFacade', () => {
+describe('PaymentFacadeFactory', () => {
   let sequelize: Sequelize;
+  let migrator: UmzugMigrator;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
@@ -14,10 +16,12 @@ describe('PaymentFacade', () => {
       sync: { force: true },
     });
     await sequelize.addModels([TransactionModel]);
-    await sequelize.sync();
+    migrator = new UmzugMigrator(sequelize);
+    await migrator.up();
   });
 
   afterEach(async () => {
+    await migrator.down();
     await sequelize.close();
   });
 

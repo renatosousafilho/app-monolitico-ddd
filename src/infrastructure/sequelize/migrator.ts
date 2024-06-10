@@ -9,6 +9,7 @@ export default class UmzugMigrator {
       migrations: { glob: "*/infrastructure/sequelize/migrations/*.{js,ts}" },
       context: sequelize,
       storage: new SequelizeStorage({ sequelize }),
+      // logger: console,
       logger: undefined,
     })
   }

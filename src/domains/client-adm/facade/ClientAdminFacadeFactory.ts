@@ -1,4 +1,4 @@
-import ClientRepository from '../repository/ClientRepository';
+import ClientRepository from '../../../infrastructure/client-adm/repository/ClientRepository';
 import AddClientUseCase from '../usecase/AddClientUseCase';
 import FindClientUseCase from '../usecase/FindClientUseCase';
 import ClientAdminFacade from './ClientAdminFacade';

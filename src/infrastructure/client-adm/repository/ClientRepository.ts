@@ -1,7 +1,7 @@
-import ClientGateway from '../gateway/ClientGateway';
-import Client from '../entity/Client';
+import ClientGateway from '../../../domains/client-adm/gateway/ClientGateway';
+import Client from '../../../domains/client-adm/entity/Client';
 import { ClientModel } from './ClientModel';
-import Id from '../../@shared/value-object/id.value-object';
+import Id from '../../../domains/@shared/value-object/id.value-object';
 
 export default class ClientRepository implements ClientGateway {
   async add(client: Client): Promise<void> {
@@ -13,6 +13,9 @@ export default class ClientRepository implements ClientGateway {
       address: client.address,
       createdAt: client.createdAt,
       updatedAt: client.updatedAt,
+    }).catch(e => {
+      console.error(e);
+      throw new Error('Error adding client');
     });
   }
   

@@ -2,7 +2,7 @@ import ProductGateway from '../gateway/product.gateway';
 import Product from '../entity/product.entity';
 import Id from '../../@shared/value-object/id.value-object';
 
-type AddProductInput = {
+export type AddProductInput = {
   id?: string;
   name: string;
   description: string;

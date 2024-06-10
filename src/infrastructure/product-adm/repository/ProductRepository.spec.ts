@@ -1,24 +1,27 @@
 import { Sequelize } from 'sequelize-typescript';
-import Id from '../../@shared/domain/value-object/id.value-object';
-import Product from '../entity/product.entity';
+import Id from '../../../domains/@shared/domain/value-object/id.value-object';
+import Product from '../../../domains/product-adm/entity/product.entity';
 import ProductModel from './ProductModel';
 import ProductRepository from './ProductRepository';
+import UmzugMigrator from '../../../infrastructure/sequelize/migrator';
 
 describe('ProductRepository', () => {
   let sequelize: Sequelize;
+  let migrator: UmzugMigrator;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
       dialect: 'sqlite',
       storage: ':memory:',
-      logging: false,
-      sync: { force: true },
+      logging: false
     });
     await sequelize.addModels([ProductModel]);
-    await sequelize.sync();
+    migrator = new UmzugMigrator(sequelize);
+    await migrator.up();
   });
 
   afterEach(async () => {
+    await migrator.down();
     await sequelize.close();
   });
 

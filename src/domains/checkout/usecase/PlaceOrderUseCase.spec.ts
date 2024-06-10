@@ -1,7 +1,7 @@
 import ClientAdminFacadeInterface, { AddClientAdminFacadeInput, FindClientAdminFacadeInput, FindClientAdminFacadeOutput } from '../../client-adm/facade/ClientAdminFacadeInterface';
 import InvoiceFacadeInterface, { FindInvoiceFacadeInputDTO, FindInvoiceFacadeOutputDTO, GenerateInvoiceFacadeInputDTO, GenerateInvoiceFacadeOutputDTO } from '../../invoice/facade/InvoiceFacadeInterface';
 import PaymentFacadeInterface, { CreatePaymentFacadeInput, CreatePaymentFacadeOutput } from '../../payment/facade/PaymentFacadeInterface';
-import ProductAdminFacadeInterface, { AddProductAdminFacadeInputDTO, CheckStockProductAdminFacadeInputDTO, CheckStockProductAdminFacadeOutputDTO } from '../../product-adm/facade/ProductAdminFacadeInterface';
+import ProductAdminFacadeInterface, { AddProductAdminFacadeInputDTO, AddProductAdminFacadeOutputDTO, CheckStockProductAdminFacadeInputDTO, CheckStockProductAdminFacadeOutputDTO } from '../../product-adm/facade/ProductAdminFacadeInterface';
 import StoreCatalogFacadeInterface, { FindAllStoreCatalogProductsOutput, FindStoreCatalogProductInput, FindStoreCatalogProductOutput } from '../../store-catalog/facade/StoreCatalogFacadeInterface';
 import Order from '../entity/Order';
 import OrderGateway from '../gateway/OrderGateway';
@@ -35,7 +35,7 @@ class ProductAdminFacadeCheckStockProductNotFound implements ProductAdminFacadeI
   async checkStockProduct(input: CheckStockProductAdminFacadeInputDTO): Promise<CheckStockProductAdminFacadeOutputDTO> {
     return null;
   }
-  addProduct(product: AddProductAdminFacadeInputDTO): Promise<void> {
+  addProduct(product: AddProductAdminFacadeInputDTO): Promise<AddProductAdminFacadeOutputDTO> {
     throw new Error('Method not implemented.');
   }
 }
@@ -47,7 +47,7 @@ class ProductAdminFacadeCheckStockProductOutOfStock implements ProductAdminFacad
       stock: 0
     };
   }
-  addProduct(product: AddProductAdminFacadeInputDTO): Promise<void> {
+  addProduct(product: AddProductAdminFacadeInputDTO): Promise<AddProductAdminFacadeOutputDTO> {
     throw new Error('Method not implemented.');
   }
 }
@@ -59,7 +59,7 @@ class ProductAdminFacadeCheckStockProductFound implements ProductAdminFacadeInte
       stock: 10
     };
   }
-  addProduct(product: AddProductAdminFacadeInputDTO): Promise<void> {
+  addProduct(product: AddProductAdminFacadeInputDTO): Promise<AddProductAdminFacadeOutputDTO> {
     throw new Error('Method not implemented.');
   }
 }

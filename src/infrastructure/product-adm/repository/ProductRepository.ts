@@ -1,7 +1,7 @@
-import ProductGateway from '../gateway/product.gateway';
-import Product from '../entity/product.entity';
+import ProductGateway from '../../../domains/product-adm/gateway/product.gateway';
+import Product from '../../../domains/product-adm/entity/product.entity';
 import ProductModel from './ProductModel';
-import Id from '../../@shared/domain/value-object/id.value-object';
+import Id from '../../../domains/@shared/domain/value-object/id.value-object';
 
 export default class ProductRepository implements ProductGateway {
   async find(id: string): Promise<Product> {
@@ -30,6 +30,10 @@ export default class ProductRepository implements ProductGateway {
       stock: product.stock,
       createdAt: product.createdAt,
       updatedAt: product.updatedAt,
-    });
+    }).catch(e => {
+      console.error(e);
+      throw new Error('Error adding product');
+    }
+    );
   }
 }

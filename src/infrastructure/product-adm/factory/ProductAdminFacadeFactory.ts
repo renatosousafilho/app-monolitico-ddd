@@ -1,8 +1,8 @@
-import ProductAdminFacadeInterface from './ProductAdminFacadeInterface';
+import ProductAdminFacadeInterface from '../../../domains/product-adm/facade/ProductAdminFacadeInterface';
 import ProductRepository from '../repository/ProductRepository';
-import AddProductUseCase from '../usecase/AddProductUseCase';
-import ProductAdminFacade from './ProductAdminFacade';
-import CheckStockProductUseCase from '../usecase/CheckStockProductUseCase';
+import AddProductUseCase from '../../../domains/product-adm/usecase/AddProductUseCase';
+import ProductAdminFacade from '../../../domains/product-adm/facade/ProductAdminFacade';
+import CheckStockProductUseCase from '../../../domains/product-adm/usecase/CheckStockProductUseCase';
 
 export default class ProductAdminFacadeFactory {
   static create(): ProductAdminFacadeInterface {

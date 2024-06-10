@@ -1,11 +1,11 @@
 import { Sequelize } from 'sequelize-typescript';
 import ProductModel from '../repository/ProductModel';
-import ProductAdminFacade from './ProductAdminFacade';
-import AddProductUseCase from '../usecase/AddProductUseCase';
+import ProductAdminFacade from '../../../domains/product-adm/facade/ProductAdminFacade';
+import AddProductUseCase from '../../../domains/product-adm/usecase/AddProductUseCase';
 import ProductRepository from '../repository/ProductRepository';
-import CheckStockProductUseCase from '../usecase/CheckStockProductUseCase';
+import ProductAdminFacadeFactory from './ProductAdminFacadeFactory';
 
-describe('ProductRepositoryAdminFacade', () => {
+describe('ProductRepositoryAdminFacadeFactory', () => {
   let sequelize: Sequelize;
 
   beforeEach(async () => {
@@ -24,10 +24,7 @@ describe('ProductRepositoryAdminFacade', () => {
   });
 
   it('should create a product', async () => {
-    const productRepository = new ProductRepository();
-    const addProductUseCase = new AddProductUseCase(productRepository);
-    const checkStockProductUseCase = new CheckStockProductUseCase(productRepository);
-    const productFacade = new ProductAdminFacade(addProductUseCase, checkStockProductUseCase);
+    const productFacade = ProductAdminFacadeFactory.create();
 
     const input = {
       id: '1',
@@ -60,10 +57,7 @@ describe('ProductRepositoryAdminFacade', () => {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-    const productRepository = new ProductRepository();
-    const addProductUseCase = new AddProductUseCase(productRepository);
-    const checkStockProductUseCase = new CheckStockProductUseCase(productRepository);
-    const productFacade = new ProductAdminFacade(addProductUseCase, checkStockProductUseCase);
+    const productFacade = ProductAdminFacadeFactory.create();
 
     // Act
     const input = { productId: '1' };

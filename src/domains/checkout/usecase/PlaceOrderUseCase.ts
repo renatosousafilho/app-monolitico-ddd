@@ -9,7 +9,7 @@ import Order from '../entity/Order';
 import Product from '../entity/Product';
 import OrderGateway from '../gateway/OrderGateway';
 
-type PlaceOrderUseCaseInput = {
+export type PlaceOrderUseCaseInput = {
   clientId: string;
   products: {
     productId: string;

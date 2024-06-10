@@ -10,7 +10,8 @@ export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
     },
     orderId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      field: 'order_id',
     },
     amount: {
       type: DataTypes.DECIMAL,
@@ -22,11 +23,13 @@ export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
     },
     createdAt: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      field: 'created_at'
     },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      field: 'updated_at'
     }
   })
 };

@@ -12,7 +12,9 @@ export default class TransactionRepository implements TransactionGateway {
       status: transaction.status,
       createdAt: transaction.createdAt,
       updatedAt: transaction.updatedAt,
-    });
+    })
+    .then((transaction) => transaction.get({ plain: true }))
+    .catch(console.error);
 
     return new Transaction({
       id: new Id(createdTransaction.id),

@@ -1,4 +1,3 @@
-import { Sequelize } from 'sequelize-typescript';
 import AddClientUseCase from '../usecase/AddClientUseCase';
 import ClientAdminFacade from './ClientAdminFacade';
 import FindClientUseCase from '../usecase/FindClientUseCase';

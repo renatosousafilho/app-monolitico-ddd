@@ -1,60 +1,51 @@
-import { Sequelize } from 'sequelize-typescript';
-import { InvoiceModel } from '../../../infrastructure/invoice/repository/InvoiceModel';
-import { InvoiceItemModel } from '../../../infrastructure/invoice/repository/InvoiceItemModel';
 import FindInvoiceUseCase from '../usecase/FindInvoiceUseCase';
 import InvoiceFacade from './InvoiceFacade';
-import InvoiceRepository from '../../../infrastructure/invoice/repository/InvoiceRepository';
 import GenerateInvoiceUseCase from '../usecase/GenerateInvoiceUseCase';
+import Address from '../entity/value-object/Address';
+import InvoiceItem from '../entity/InvoiceItem';
+import Id from '../../@shared/value-object/id.value-object';
+import InvoiceGateway from '../gateway/InvoiceGateway';
+import Invoice from '../entity/Invoice';
+
+const address = new Address({
+  street: 'Main St',
+    number: '100',
+    complement: 'Apt 200',
+    city: 'Springfield',
+    state: 'IL',
+    zipCode: '62701',
+});
+const item1 = new InvoiceItem({
+  id: '1',
+  name: 'Product 1',
+  price: 50,
+});
+const item2 = new InvoiceItem({
+  id: '2',
+  name: 'Product 2',
+  price: 100,
+});
+const items = [item1, item2];
+
+const invoice = new Invoice({
+  id:  new Id('1'),
+  name: 'John Doe',
+  document: '12345678901',
+  address,
+  items,
+});
+
+class InvoiceRepositoryMock implements InvoiceGateway {
+  async create(invoice: Invoice): Promise<void> {}
+  async find(id: string): Promise<Invoice> {
+    return invoice;
+  }
+}
 
 describe('InvoiceFacade', () => {
-  let sequelize: Sequelize;
-
-  beforeEach(async () => {
-    sequelize = new Sequelize({
-      dialect: 'sqlite',
-      storage: ':memory:',
-      logging: false,
-      sync: { force: true },
-    });
-    await sequelize.addModels([InvoiceModel, InvoiceItemModel]);
-    await sequelize.sync();
-  });
-
-  afterEach(async () => {
-    await sequelize.close();
-  });
-
   it('should find an invoice', async () => {
     // Arrange
-    const item1 = {
-      id: '1',
-      name: 'Product 1',
-      price: 50,
-    };
-    const item2 = {
-      id: '2',
-      name: 'Product 2',
-      price: 100,
-    };
-    const items = [item1, item2];
-
-    await InvoiceModel.create({
-      id: '1',
-      name: 'John Doe',
-      document: '12345678901',
-      street: 'Main St',
-      number: '100',
-      complement: 'Apt 200',
-      city: 'Springfield',
-      state: 'IL',
-      zipcode: '62701',
-      items,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }, {
-      include: [{ model: InvoiceItemModel }]
-    });
-    const repository = new InvoiceRepository();
+    const repository = new InvoiceRepositoryMock();
     const findInvoiceUseCase = new FindInvoiceUseCase(repository);
     const generateInvoiceUseCase = new GenerateInvoiceUseCase(repository);
     const facade = new InvoiceFacade(findInvoiceUseCase, generateInvoiceUseCase);
@@ -85,7 +76,7 @@ describe('InvoiceFacade', () => {
 
   it('should generate an invoice', async () => {
     // Arrange
-    const repository = new InvoiceRepository();
+    const repository = new InvoiceRepositoryMock();
     const findInvoiceUseCase = new FindInvoiceUseCase(repository);
     const generateInvoiceUseCase = new GenerateInvoiceUseCase(repository);
     const facade = new InvoiceFacade(findInvoiceUseCase, generateInvoiceUseCase);

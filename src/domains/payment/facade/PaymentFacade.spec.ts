@@ -1,30 +1,23 @@
-import { Sequelize } from 'sequelize-typescript';
-import TransactionModel from '../../../infrastructure/payment/repository/TransactionModel';
-import TransactionRepository from '../../../infrastructure/payment/repository/TransactionRepository';
+import Id from '../../@shared/value-object/id.value-object';
+import Transaction from '../entity/Transaction';
+import TransactionGateway from '../gateway/TransactionGateway';
 import ProcessPaymentUseCase from '../usecase/ProcessPaymentUseCase';
 import PaymentFacade from './PaymentFacade';
 
+class TransactionRepositoryMock implements TransactionGateway {
+  async create(transaction: Transaction): Promise<Transaction> {
+    return new Transaction({
+      id: new Id('1'),
+      orderId: '123',
+      amount: 100,
+      status: 'approved',
+    });
+  }
+}
 
 describe('PaymentFacade', () => {
-  let sequelize: Sequelize;
-
-  beforeEach(async () => {
-    sequelize = new Sequelize({
-      dialect: 'sqlite',
-      storage: ':memory:',
-      logging: false,
-      sync: { force: true },
-    });
-    await sequelize.addModels([TransactionModel]);
-    await sequelize.sync();
-  });
-
-  afterEach(async () => {
-    await sequelize.close();
-  });
-
   it('should create a transaction', async () => {
-    const repository = new TransactionRepository();
+    const repository = new TransactionRepositoryMock();
     const usecase = new ProcessPaymentUseCase(repository);
     const facade = new PaymentFacade(usecase);
     const input = {

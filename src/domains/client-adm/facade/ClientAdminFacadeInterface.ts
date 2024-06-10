@@ -6,6 +6,16 @@ export type AddClientAdminFacadeInput = {
   address: string;
 };
 
+export type AddClientAdminFacadeOutput = {
+  id: string;
+  name: string;
+  email: string;
+  document: string;
+  address: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export type FindClientAdminFacadeInput = {
   id: string;
 };
@@ -19,6 +29,6 @@ export type FindClientAdminFacadeOutput = {
 };
 
 export default interface ClientAdminFacadeInterface {
-  add(client: AddClientAdminFacadeInput): Promise<void>;
+  add(client: AddClientAdminFacadeInput): Promise<AddClientAdminFacadeOutput>;
   find(input: FindClientAdminFacadeInput): Promise<FindClientAdminFacadeOutput>;
 }

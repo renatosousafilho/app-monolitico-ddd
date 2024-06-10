@@ -1,31 +1,29 @@
 import { Sequelize } from 'sequelize-typescript';
-import { ClientModel } from '../../../infrastructure/client-adm/repository/ClientModel';
-import ClientRepository from '../../../infrastructure/client-adm/repository/ClientRepository';
 import AddClientUseCase from '../usecase/AddClientUseCase';
 import ClientAdminFacade from './ClientAdminFacade';
 import FindClientUseCase from '../usecase/FindClientUseCase';
+import ClientGateway from '../gateway/ClientGateway';
+import Client from '../entity/Client';
+import Id from '../../@shared/value-object/id.value-object';
+
+class ClientRepositoryMock implements ClientGateway {
+  async add(client: Client): Promise<void> {}
+
+  async find(id: string): Promise<Client> {
+    return new Client({
+      id: new Id('1'),
+      name: 'John Doe',
+      email: 'johndoe@mail.com',
+      document: '12345678900',
+      address: '123 Main St'
+    });
+  }
+}
 
 describe('ProductRepository', () => {
-  let sequelize: Sequelize;
-
-  beforeEach(async () => {
-    sequelize = new Sequelize({
-      dialect: 'sqlite',
-      storage: ':memory:',
-      logging: false,
-      sync: { force: true },
-    });
-    await sequelize.addModels([ClientModel]);
-    await sequelize.sync();
-  });
-
-  afterEach(async () => {
-    await sequelize.close();
-  });
-
   it('shoud add a client', async () => {
     // Arrange
-    const clientRepository = new ClientRepository();
+    const clientRepository = new ClientRepositoryMock();
     const addClientUseCase = new AddClientUseCase(clientRepository);
     const findClientUseCase = new FindClientUseCase(clientRepository);
     const clientAdminFacade = new ClientAdminFacade(addClientUseCase, findClientUseCase);
@@ -38,33 +36,23 @@ describe('ProductRepository', () => {
     };
 
     // Act
-    await clientAdminFacade.add(input);
+    const output = await clientAdminFacade.add(input);
 
     // Assert
-    const client = await ClientModel.findOne({ where: { name: 'John Doe' } });
-    expect(client).toBeDefined();
-    expect(client.id).toBe(input.id);
-    expect(client.name).toBe(input.name);
-    expect(client.email).toBe(input.email);
-    expect(client.document).toBe(input.document);
-    expect(client.address).toBe(input.address);  
+    expect(output).toBeDefined();
+    expect(output.id).toBe(input.id);
+    expect(output.name).toBe(input.name);
+    expect(output.email).toBe(input.email);
+    expect(output.document).toBe(input.document);
+    expect(output.address).toBe(input.address);  
   });
 
   it('shoud find a client', async () => {
     // Arrange
-    const clientRepository = new ClientRepository();
+    const clientRepository = new ClientRepositoryMock();
     const addClientUseCase = new AddClientUseCase(clientRepository);
     const findClientUseCase = new FindClientUseCase(clientRepository);
     const clientAdminFacade = new ClientAdminFacade(addClientUseCase, findClientUseCase);
-    await ClientModel.create({
-      id: '1',
-      name: 'John Doe',
-      email: 'johndoe@mail.com',
-      document: '12345678900',
-      address: '123 Main St',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    });
 
     // Act
     const client = await clientAdminFacade.find({ id: '1' });

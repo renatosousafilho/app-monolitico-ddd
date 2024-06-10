@@ -1,13 +1,11 @@
 import { Sequelize } from 'sequelize-typescript';
-import { ClientModel } from '../../../infrastructure/client-adm/repository/ClientModel';
-import ClientRepository from '../../../infrastructure/client-adm/repository/ClientRepository';
-import AddClientUseCase from '../usecase/AddClientUseCase';
-import ClientAdminFacade from './ClientAdminFacade';
-import FindClientUseCase from '../usecase/FindClientUseCase';
+import { ClientModel } from '../repository/ClientModel';
 import ClientAdminFacadeFactory from './ClientAdminFacadeFactory';
+import UmzugMigrator from '../../sequelize/migrator';
 
 describe('ProductRepository', () => {
   let sequelize: Sequelize;
+  let migrator: UmzugMigrator;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
@@ -17,10 +15,12 @@ describe('ProductRepository', () => {
       sync: { force: true },
     });
     await sequelize.addModels([ClientModel]);
-    await sequelize.sync();
+    migrator = new UmzugMigrator(sequelize);
+    await migrator.up();
   });
 
   afterEach(async () => {
+    await migrator.down();
     await sequelize.close();
   });
 

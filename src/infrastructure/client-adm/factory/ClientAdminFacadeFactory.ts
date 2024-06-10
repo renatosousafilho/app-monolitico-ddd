@@ -1,7 +1,7 @@
-import ClientRepository from '../../../infrastructure/client-adm/repository/ClientRepository';
-import AddClientUseCase from '../usecase/AddClientUseCase';
-import FindClientUseCase from '../usecase/FindClientUseCase';
-import ClientAdminFacade from './ClientAdminFacade';
+import ClientRepository from '../repository/ClientRepository';
+import AddClientUseCase from '../../../domains/client-adm/usecase/AddClientUseCase';
+import FindClientUseCase from '../../../domains/client-adm/usecase/FindClientUseCase';
+import ClientAdminFacade from '../../../domains/client-adm/facade/ClientAdminFacade';
 
 export default class ClientAdminFacadeFactory {
   static create() {

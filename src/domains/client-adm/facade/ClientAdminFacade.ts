@@ -1,6 +1,6 @@
 import AddClientUseCase from '../usecase/AddClientUseCase';
 import FindClientUseCase from '../usecase/FindClientUseCase';
-import ClientAdminFacadeInterface, { AddClientAdminFacadeInput, FindClientAdminFacadeInput, FindClientAdminFacadeOutput } from './ClientAdminFacadeInterface';
+import ClientAdminFacadeInterface, { AddClientAdminFacadeInput, AddClientAdminFacadeOutput, FindClientAdminFacadeInput, FindClientAdminFacadeOutput } from './ClientAdminFacadeInterface';
 
 export default class ClientAdminFacade implements ClientAdminFacadeInterface {
   private _addClientUseCase: AddClientUseCase;
@@ -11,8 +11,8 @@ export default class ClientAdminFacade implements ClientAdminFacadeInterface {
     this._findClientUseCase = findClientUseCase;
   }
 
-  async add(client: AddClientAdminFacadeInput): Promise<void> {
-    await this._addClientUseCase.execute(client);
+  async add(client: AddClientAdminFacadeInput): Promise<AddClientAdminFacadeOutput> {
+    return await this._addClientUseCase.execute(client);
   }
 
   async find(input: FindClientAdminFacadeInput): Promise<FindClientAdminFacadeOutput> {

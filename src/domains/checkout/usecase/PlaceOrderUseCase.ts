@@ -8,7 +8,6 @@ import Client from '../entity/Client';
 import Order from '../entity/Order';
 import Product from '../entity/Product';
 import OrderGateway from '../gateway/OrderGateway';
-import OrderRepository from '../../../infrastructure/checkout/repository/OrderRepository';
 
 type PlaceOrderUseCaseInput = {
   clientId: string;
@@ -45,7 +44,7 @@ export default class PlaceOrderUseCase {
   private _invoiceFacade: InvoiceFacadeInterface;
 
   constructor(props: PlaceOrderUseCaseProps) {
-    this._orderRepository = props.orderRepository || new OrderRepository();
+    this._orderRepository = props.orderRepository,
     this._clientAdminFacade = props.clientAdminFacade;
     this._productAdminFacade = props.productAdminFacade;
     this._storeCatalogFacade = props.storeCatalogFacade;

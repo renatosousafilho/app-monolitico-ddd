@@ -1,4 +1,4 @@
-import ClientAdminFacadeInterface, { AddClientAdminFacadeInput, FindClientAdminFacadeInput, FindClientAdminFacadeOutput } from '../../client-adm/facade/ClientAdminFacadeInterface';
+import ClientAdminFacadeInterface, { AddClientAdminFacadeInput, AddClientAdminFacadeOutput, FindClientAdminFacadeInput, FindClientAdminFacadeOutput } from '../../client-adm/facade/ClientAdminFacadeInterface';
 import InvoiceFacadeInterface, { FindInvoiceFacadeInputDTO, FindInvoiceFacadeOutputDTO, GenerateInvoiceFacadeInputDTO, GenerateInvoiceFacadeOutputDTO } from '../../invoice/facade/InvoiceFacadeInterface';
 import PaymentFacadeInterface, { CreatePaymentFacadeInput, CreatePaymentFacadeOutput } from '../../payment/facade/PaymentFacadeInterface';
 import ProductAdminFacadeInterface, { AddProductAdminFacadeInputDTO, AddProductAdminFacadeOutputDTO, CheckStockProductAdminFacadeInputDTO, CheckStockProductAdminFacadeOutputDTO } from '../../product-adm/facade/ProductAdminFacadeInterface';
@@ -8,7 +8,7 @@ import OrderGateway from '../gateway/OrderGateway';
 import PlaceOrderUseCase from './PlaceOrderUseCase';
 
 class ClientAdminFacadeMockWithClientNotFound implements ClientAdminFacadeInterface {
-  add(client: AddClientAdminFacadeInput): Promise<void> {
+  add(client: AddClientAdminFacadeInput): Promise<AddClientAdminFacadeOutput> {
     throw new Error('Method not implemented.');
   }
   find(input: FindClientAdminFacadeInput): Promise<FindClientAdminFacadeOutput> {
@@ -17,7 +17,7 @@ class ClientAdminFacadeMockWithClientNotFound implements ClientAdminFacadeInterf
 }
 
 class ClientAdminFacadeMockWithClientFound implements ClientAdminFacadeInterface {
-  add(client: AddClientAdminFacadeInput): Promise<void> {
+  add(client: AddClientAdminFacadeInput): Promise<AddClientAdminFacadeOutput> {
     throw new Error('Method not implemented.');
   }
   async find(input: FindClientAdminFacadeInput): Promise<FindClientAdminFacadeOutput> {

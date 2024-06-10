@@ -1,5 +1,5 @@
-import Order from '../entity/Order';
-import OrderGateway from '../gateway/OrderGateway';
+import Order from '../../../domains/checkout/entity/Order';
+import OrderGateway from '../../../domains/checkout/gateway/OrderGateway';
 import { OrderItemModel } from './OrderItemModel';
 import { OrderModel } from './OrderModel';
 
@@ -22,7 +22,7 @@ export default class OrderRepository implements OrderGateway {
       items,
     },  {
       include: [{ model: OrderItemModel }]
-    });
+    }).catch(console.error);
   }
 
 }

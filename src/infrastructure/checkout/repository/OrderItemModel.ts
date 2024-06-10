@@ -2,7 +2,7 @@ import { Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescri
 import { OrderModel } from './OrderModel';
 
 @Table({
-  tableName: 'order_item',
+  tableName: 'order_items',
   timestamps: false
 })
 export class OrderItemModel extends Model {

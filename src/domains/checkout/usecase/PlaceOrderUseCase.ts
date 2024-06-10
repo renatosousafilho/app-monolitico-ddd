@@ -8,7 +8,7 @@ import Client from '../entity/Client';
 import Order from '../entity/Order';
 import Product from '../entity/Product';
 import OrderGateway from '../gateway/OrderGateway';
-import OrderRepository from '../repository/OrderRepository';
+import OrderRepository from '../../../infrastructure/checkout/repository/OrderRepository';
 
 type PlaceOrderUseCaseInput = {
   clientId: string;

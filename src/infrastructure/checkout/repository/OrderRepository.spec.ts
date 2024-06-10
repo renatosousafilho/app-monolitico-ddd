@@ -1,15 +1,17 @@
 import { Sequelize } from 'sequelize-typescript';
-import Id from '../../@shared/value-object/id.value-object';
+import Id from '../../../domains/@shared/value-object/id.value-object';
 import { OrderModel } from './OrderModel';
-import Order from '../entity/Order';
-import Client from '../entity/Client';
+import Order from '../../../domains/checkout/entity/Order';
+import Client from '../../../domains/checkout/entity/Client';
 import OrderRepository from './OrderRepository';
 import { OrderItemModel } from './OrderItemModel';
-import Product from '../entity/Product';
+import Product from '../../../domains/checkout/entity/Product';
+import UmzugMigrator from '../../sequelize/migrator';
 
 
 describe('ProductRepository', () => {
   let sequelize: Sequelize;
+  let migrator: UmzugMigrator;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
@@ -19,10 +21,12 @@ describe('ProductRepository', () => {
       sync: { force: true },
     });
     await sequelize.addModels([OrderModel, OrderItemModel]);
-    await sequelize.sync();
+    migrator = new UmzugMigrator(sequelize);
+    await migrator.up();
   });
 
   afterEach(async () => {
+    await migrator.down();
     await sequelize.close();
   });
 

@@ -2,7 +2,7 @@ import Id from '../../@shared/value-object/id.value-object';
 import Client from '../entity/Client';
 import ClientGateway from '../gateway/ClientGateway';
 
-type AddClientUseCaseInput = { 
+export type AddClientUseCaseInput = { 
   id?: string;
   name: string;
   email: string;

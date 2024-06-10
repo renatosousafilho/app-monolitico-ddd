@@ -1,14 +1,14 @@
 import { Sequelize } from 'sequelize-typescript';
 import express, { Express } from 'express';
 import UmzugMigrator from '../../sequelize/migrator';
-import { ClientModel } from '../../modules/client-adm/repository/ClientModel';
+import ClientModel from '../../modules/client-adm/repository/ClientModel';
 import ProductModel from '../../modules/store-catalog/repository/ProductModel';
 import ProductModelAdm from '../../modules/product-adm/repository/ProductModel';
 import TransactionModel from '../../modules/payment/repository/TransactionModel';
-import { OrderModel } from '../../modules/checkout/repository/OrderModel';
-import { OrderItemModel } from '../../modules/checkout/repository/OrderItemModel';
-import { InvoiceModel } from '../../modules/invoice/repository/InvoiceModel';
-import { InvoiceItemModel } from '../../modules/invoice/repository/InvoiceItemModel';
+import OrderModel from '../../modules/checkout/repository/OrderModel';
+import OrderItemModel from '../../modules/checkout/repository/OrderItemModel';
+import InvoiceModel from '../../modules/invoice/repository/InvoiceModel';
+import InvoiceItemModel from '../../modules/invoice/repository/InvoiceItemModel';
 import checkoutRoute from './checkout.route';
 import supertest from 'supertest';
 

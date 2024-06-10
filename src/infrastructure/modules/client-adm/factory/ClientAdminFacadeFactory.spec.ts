@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import { ClientModel } from '../repository/ClientModel';
+import ClientModel from '../repository/ClientModel';
 import ClientAdminFacadeFactory from './ClientAdminFacadeFactory';
 import UmzugMigrator from '../../../sequelize/migrator';
 

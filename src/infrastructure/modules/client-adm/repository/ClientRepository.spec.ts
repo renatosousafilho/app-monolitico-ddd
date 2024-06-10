@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import Id from '../../../../domains/@shared/value-object/id.value-object';
-import { ClientModel } from './ClientModel';
+import ClientModel from './ClientModel';
 import ClientRepository from './ClientRepository';
 import Client from '../../../../domains/client-adm/entity/Client';
 import UmzugMigrator from '../../../sequelize/migrator';

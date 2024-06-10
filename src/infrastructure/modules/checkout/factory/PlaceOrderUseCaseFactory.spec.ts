@@ -1,14 +1,14 @@
 import { Sequelize } from 'sequelize-typescript';
 import UmzugMigrator from '../../../sequelize/migrator';
 import PlaceOrderUseCaseFactory from './PlaceOrderUseCaseFactory';
-import { ClientModel } from '../../client-adm/repository/ClientModel';
+import ClientModel from '../../client-adm/repository/ClientModel';
 import ProductModel from '../../store-catalog/repository/ProductModel';
 import ProductModelAdm from '../../product-adm/repository/ProductModel';
 import TransactionModel from '../../payment/repository/TransactionModel';
-import { OrderModel } from '../repository/OrderModel';
-import { OrderItemModel } from '../repository/OrderItemModel';
-import { InvoiceModel } from '../../invoice/repository/InvoiceModel';
-import { InvoiceItemModel } from '../../invoice/repository/InvoiceItemModel';
+import OrderModel from '../repository/OrderModel';
+import OrderItemModel from '../repository/OrderItemModel';
+import InvoiceModel from '../../invoice/repository/InvoiceModel';
+import InvoiceItemModel from '../../invoice/repository/InvoiceItemModel';
 
 describe('PlaceOrderUseCaseFactory', () => {
   let sequelize: Sequelize;

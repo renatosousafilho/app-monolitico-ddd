@@ -3,7 +3,7 @@ import express, { Express } from 'express'
 import { Sequelize } from 'sequelize-typescript';
 import UmzugMigrator from '../../sequelize/migrator';
 import clientRoute from './client.route';
-import { ClientModel } from '../../modules/client-adm/repository/ClientModel';
+import ClientModel from '../../modules/client-adm/repository/ClientModel';
 
 describe('product.route', () => {
   let app: Express = express();

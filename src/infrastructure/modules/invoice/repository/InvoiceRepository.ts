@@ -3,8 +3,8 @@ import Invoice from '../../../../domains/invoice/entity/Invoice';
 import InvoiceItem from '../../../../domains/invoice/entity/InvoiceItem';
 import Address from '../../../../domains/invoice/entity/value-object/Address';
 import InvoiceGateway from '../../../../domains/invoice/gateway/InvoiceGateway';
-import { InvoiceItemModel } from './InvoiceItemModel';
-import { InvoiceModel } from './InvoiceModel';
+import InvoiceModel from './InvoiceModel';
+import InvoiceItemModel from './InvoiceItemModel';
 
 export default class InvoiceRepository implements InvoiceGateway {
   async create(invoice: Invoice): Promise<void> {
@@ -45,7 +45,7 @@ export default class InvoiceRepository implements InvoiceGateway {
       zipCode: invoiceFound.zipcode,
     });
 
-    const items = invoiceFound.items.map((item) => new InvoiceItem({
+    const items = invoiceFound.items.map((item: InvoiceItemModel) => new InvoiceItem({
       id: item.id,
       name: item.name,
       price: item.price,

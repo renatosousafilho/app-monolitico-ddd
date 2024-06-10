@@ -1,10 +1,10 @@
 import { Sequelize } from 'sequelize-typescript';
 import Id from '../../../../domains/@shared/value-object/id.value-object';
-import { OrderModel } from './OrderModel';
 import Order from '../../../../domains/checkout/entity/Order';
 import Client from '../../../../domains/checkout/entity/Client';
 import OrderRepository from './OrderRepository';
-import { OrderItemModel } from './OrderItemModel';
+import OrderModel from './OrderModel';
+import OrderItemModel from './OrderItemModel';
 import Product from '../../../../domains/checkout/entity/Product';
 import UmzugMigrator from '../../../sequelize/migrator';
 

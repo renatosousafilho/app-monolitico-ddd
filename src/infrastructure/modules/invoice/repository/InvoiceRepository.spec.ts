@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
-import { InvoiceModel } from './InvoiceModel';
-import { InvoiceItemModel } from './InvoiceItemModel';
+import InvoiceModel from '../../../../infrastructure/modules/invoice/repository/InvoiceModel';
+import InvoiceItemModel from '../../../../infrastructure/modules/invoice/repository/InvoiceItemModel';
 import Address from '../../../../domains/invoice/entity/value-object/Address';
 import InvoiceItem from '../../../../domains/invoice/entity/InvoiceItem';
 import Invoice from '../../../../domains/invoice/entity/Invoice';

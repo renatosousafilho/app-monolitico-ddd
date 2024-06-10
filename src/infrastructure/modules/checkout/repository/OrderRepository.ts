@@ -1,7 +1,7 @@
 import Order from '../../../../domains/checkout/entity/Order';
 import OrderGateway from '../../../../domains/checkout/gateway/OrderGateway';
-import { OrderItemModel } from './OrderItemModel';
-import { OrderModel } from './OrderModel';
+import OrderItemModel from './OrderItemModel';
+import OrderModel from './OrderModel';
 
 export default class OrderRepository implements OrderGateway {
   async add(order: Order): Promise<void> {

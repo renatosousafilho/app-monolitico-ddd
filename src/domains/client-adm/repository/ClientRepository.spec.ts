@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import Id from '../../@shared/domain/value-object/id.value-object';
+import Id from '../../@shared/value-object/id.value-object';
 import { ClientModel } from './ClientModel';
 import ClientRepository from './ClientRepository';
 import Client from '../entity/Client';

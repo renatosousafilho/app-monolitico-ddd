@@ -1,4 +1,4 @@
-import Id from '../../@shared/domain/value-object/id.value-object';
+import Id from '../../@shared/value-object/id.value-object';
 import Client from '../entity/Client';
 import ClientGateway from '../gateway/ClientGateway';
 import FindClientUseCase from './FindClientUseCase';

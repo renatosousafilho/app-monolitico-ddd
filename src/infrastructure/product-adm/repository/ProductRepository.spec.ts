@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import Id from '../../../domains/@shared/domain/value-object/id.value-object';
+import Id from '../../../domains/@shared/value-object/id.value-object';
 import Product from '../../../domains/product-adm/entity/product.entity';
 import ProductModel from './ProductModel';
 import ProductRepository from './ProductRepository';

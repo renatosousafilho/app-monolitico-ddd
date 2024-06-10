@@ -1,6 +1,6 @@
-import AggregateRoot from '../../@shared/domain/entity/aggregate-root.interface';
-import BaseEntity from '../../@shared/domain/entity/base.entity';
-import Id from '../../@shared/domain/value-object/id.value-object';
+import AggregateRoot from '../../@shared/entity/aggregate-root.interface';
+import BaseEntity from '../../@shared/entity/base.entity';
+import Id from '../../@shared/value-object/id.value-object';
 import InvoiceItem from './InvoiceItem';
 import Address from './value-object/Address';
 

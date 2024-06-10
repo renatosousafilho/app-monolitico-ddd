@@ -1,7 +1,7 @@
 import ClientGateway from '../gateway/ClientGateway';
 import Client from '../entity/Client';
 import { ClientModel } from './ClientModel';
-import Id from '../../@shared/domain/value-object/id.value-object';
+import Id from '../../@shared/value-object/id.value-object';
 
 export default class ClientRepository implements ClientGateway {
   async add(client: Client): Promise<void> {

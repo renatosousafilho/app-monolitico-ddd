@@ -1,4 +1,4 @@
-import Id from '../../@shared/domain/value-object/id.value-object';
+import Id from '../../@shared/value-object/id.value-object';
 import ClientAdminFacadeInterface from '../../client-adm/facade/ClientAdminFacadeInterface';
 import InvoiceFacadeInterface from '../../invoice/facade/InvoiceFacadeInterface';
 import PaymentFacadeInterface from '../../payment/facade/PaymentFacadeInterface';

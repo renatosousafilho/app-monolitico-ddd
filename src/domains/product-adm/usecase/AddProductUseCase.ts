@@ -1,6 +1,6 @@
 import ProductGateway from '../gateway/product.gateway';
 import Product from '../entity/product.entity';
-import Id from '../../@shared/domain/value-object/id.value-object';
+import Id from '../../@shared/value-object/id.value-object';
 
 type AddProductInput = {
   id?: string;

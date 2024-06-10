@@ -1,5 +1,5 @@
 import express from 'express';
-import productRouter from './routes/product.route';
+import router from './routes';
 
 const app = express();
 
@@ -9,6 +9,6 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-app.use('/products', productRouter);
+app.use(router);
 
 export default app;

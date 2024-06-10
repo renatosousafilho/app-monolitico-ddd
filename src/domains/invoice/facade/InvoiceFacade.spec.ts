@@ -1,9 +1,9 @@
 import { Sequelize } from 'sequelize-typescript';
-import { InvoiceModel } from '../repository/InvoiceModel';
-import { InvoiceItemModel } from '../repository/InvoiceItemModel';
+import { InvoiceModel } from '../../../infrastructure/invoice/repository/InvoiceModel';
+import { InvoiceItemModel } from '../../../infrastructure/invoice/repository/InvoiceItemModel';
 import FindInvoiceUseCase from '../usecase/FindInvoiceUseCase';
 import InvoiceFacade from './InvoiceFacade';
-import InvoiceRepository from '../repository/InvoiceRepository';
+import InvoiceRepository from '../../../infrastructure/invoice/repository/InvoiceRepository';
 import GenerateInvoiceUseCase from '../usecase/GenerateInvoiceUseCase';
 
 describe('InvoiceFacade', () => {

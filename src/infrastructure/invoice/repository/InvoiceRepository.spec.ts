@@ -1,14 +1,16 @@
 import { Sequelize } from 'sequelize-typescript';
-import Id from '../../@shared/value-object/id.value-object';
+import Id from '../../../domains/@shared/value-object/id.value-object';
 import { InvoiceModel } from './InvoiceModel';
 import { InvoiceItemModel } from './InvoiceItemModel';
-import Address from '../entity/value-object/Address';
-import InvoiceItem from '../entity/InvoiceItem';
-import Invoice from '../entity/Invoice';
+import Address from '../../../domains/invoice/entity/value-object/Address';
+import InvoiceItem from '../../../domains/invoice/entity/InvoiceItem';
+import Invoice from '../../../domains/invoice/entity/Invoice';
 import InvoiceRepository from './InvoiceRepository';
+import UmzugMigrator from '../../sequelize/migrator';
 
 describe('ProductRepository', () => {
   let sequelize: Sequelize;
+  let migrator: UmzugMigrator;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
@@ -18,10 +20,12 @@ describe('ProductRepository', () => {
       sync: { force: true },
     });
     await sequelize.addModels([InvoiceModel, InvoiceItemModel]);
-    await sequelize.sync();
+    migrator = new UmzugMigrator(sequelize);
+    await migrator.up();
   });
 
   afterEach(async () => {
+    await migrator.down();
     await sequelize.close();
   });
 

@@ -1,8 +1,8 @@
-import Id from '../../@shared/value-object/id.value-object';
-import Invoice from '../entity/Invoice';
-import InvoiceItem from '../entity/InvoiceItem';
-import Address from '../entity/value-object/Address';
-import InvoiceGateway from '../gateway/InvoiceGateway';
+import Id from '../../../domains/@shared/value-object/id.value-object';
+import Invoice from '../../../domains/invoice/entity/Invoice';
+import InvoiceItem from '../../../domains/invoice/entity/InvoiceItem';
+import Address from '../../../domains/invoice/entity/value-object/Address';
+import InvoiceGateway from '../../../domains/invoice/gateway/InvoiceGateway';
 import { InvoiceItemModel } from './InvoiceItemModel';
 import { InvoiceModel } from './InvoiceModel';
 

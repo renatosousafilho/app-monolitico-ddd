@@ -1,4 +1,4 @@
-import InvoiceRepository from '../repository/InvoiceRepository';
+import InvoiceRepository from '../../../infrastructure/invoice/repository/InvoiceRepository';
 import FindInvoiceUseCase from '../usecase/FindInvoiceUseCase';
 import GenerateInvoiceUseCase from '../usecase/GenerateInvoiceUseCase';
 import InvoiceFacade from './InvoiceFacade';

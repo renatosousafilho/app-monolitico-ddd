@@ -1,10 +1,12 @@
 import { Sequelize } from 'sequelize-typescript';
-import Id from '../../@shared/value-object/id.value-object';
+import Id from '../../../domains/@shared/value-object/id.value-object';
 import ProductModel from './ProductModel';
 import ProductRepository from './ProductRepository';
+import UmzugMigrator from '../../sequelize/migrator';
 
 describe('ProductRepository', () => {
   let sequelize: Sequelize;
+  let migrator: UmzugMigrator;
 
   beforeEach(async () => {
     sequelize = new Sequelize({
@@ -14,10 +16,12 @@ describe('ProductRepository', () => {
       sync: { force: true },
     });
     await sequelize.addModels([ProductModel]);
-    await sequelize.sync();
+    migrator = new UmzugMigrator(sequelize);
+    await migrator.up();
   });
 
   afterEach(async () => {
+    await migrator.down();
     await sequelize.close();
   });
 
@@ -26,7 +30,7 @@ describe('ProductRepository', () => {
     await ProductModel.bulkCreate([
       { id: '1', name: 'Product 1', description: 'Description 1', salesPrice: 10 },
       { id: '2', name: 'Product 2', description: 'Description 2', salesPrice: 20 },
-    ]);
+    ]).catch(console.error);
     const productRepository = new ProductRepository();
 
     // Act
